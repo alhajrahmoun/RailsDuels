@@ -1,56 +1,61 @@
 class MatchmakingService
   def self.call(current_user)
-    opponent = User.where(status: :in_queue)
-                   .where.not(id: current_user.id)
-                   .first
+    @current_user = current_user
+    @opponent = MatchmakingQuery.call(current_user)
 
-    if opponent.present?
-      current_user_match_template = ApplicationController.render(
-        partial: 'matchmaking/match_found',
-        locals: { opponent: opponent }
-      )
-
-      opponent_match_template = ApplicationController.render(
-        partial: 'matchmaking/match_found',
-        locals: { opponent: current_user }
-      )
-
-      current_user_channel = "queue_#{current_user.level}_#{current_user.id}"
-      opponent_channel = "queue_#{opponent.level}_#{opponent.id}"
-
-      Turbo::StreamsChannel.broadcast_replace_to(
-        current_user_channel,
-        target: 'match',
-        content: current_user_match_template
-      )
-
-      Turbo::StreamsChannel.broadcast_remove_to(
-        current_user_channel,
-        target: 'cancellation-section'
-      )
-
-      Turbo::StreamsChannel.broadcast_replace_to(
-        opponent_channel,
-        target: 'match',
-        content: opponent_match_template
-      )
-
-      Turbo::StreamsChannel.broadcast_remove_to(
-        opponent_channel,
-        target: 'cancellation-section'
-      )
+    if @opponent.present?
+      match_found
     else
-      no_match = ApplicationController.render(
-        partial: 'matchmaking/no_match_found'
+      no_match_found
+    end
+  end
+
+  private
+
+  class << self
+    attr_reader :current_user, :opponent
+
+    def match_found
+      Turbo::StreamsChannel.broadcast_replace_to(
+        queue_channel(current_user),
+        target: 'match',
+        content: render_template('match_found', opponent: opponent)
       )
 
-      current_user_channel = "queue_#{current_user.level}_#{current_user.id}"
+      Turbo::StreamsChannel.broadcast_remove_to(
+        queue_channel(current_user),
+        target: 'cancellation-section'
+      )
 
       Turbo::StreamsChannel.broadcast_replace_to(
-        current_user_channel,
+        queue_channel(opponent),
         target: 'match',
-        content: no_match
+        content: render_template('match_found', opponent: current_user)
       )
+
+      Turbo::StreamsChannel.broadcast_remove_to(
+        queue_channel(opponent),
+        target: 'cancellation-section'
+      )
+    end
+
+    def no_match_found
+      Turbo::StreamsChannel.broadcast_replace_to(
+        queue_channel(current_user),
+        target: 'match',
+        content: render_template('no_match_found')
+      )
+    end
+
+    def render_template(template, locals = {})
+      ApplicationController.render(
+        partial: "matchmaking/#{template}",
+        locals: locals
+      )
+    end
+
+    def queue_channel(user)
+      "queue_#{user.level}_#{user.id}"
     end
   end
 end

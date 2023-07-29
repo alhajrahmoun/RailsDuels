@@ -1,25 +1,9 @@
-<%= turbo_stream.replace 'matchmaking_modal' do %>
+<%= turbo_stream.replace 'matchmaking-modal-content' do %>
   <%= turbo_frame_tag :matchmaking do %>
     <%= turbo_stream_from "queue_#{current_user.level}_#{current_user.id}" %>
 
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title">Finding a match for you</h5>
-      </div>
-      <div class="modal-body">
-        <div class="mb-3">
-          <p>People in queue: <%= @in_queue_users %></p>
-          <p>We are looking for an opponent that matches your level</p>
-        </div>
-
-        <div id="match"></div>
-        <div class="mb-3">
-          <p><%= current_user.username %> | Rank: <%= @user_rank %></p>
-        </div>
-      </div>
-      <div class="modal-footer" id="cancellation-section">
-        <%= button_to 'Stop', { controller: 'matchmaking', action: 'destroy' }, method: :delete,  data: { turbo: false }, class: 'btn btn-danger'  %>
-      </div>
-    </div>
+    <%= render partial: 'matchmaking/matchmaking_modal_content',
+               locals: { queue_size: @queue_size,
+                         current_user_rank: @current_user_rank } %>
   <% end %>
 <% end %>

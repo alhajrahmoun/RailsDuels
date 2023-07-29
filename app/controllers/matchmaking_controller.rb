@@ -1,17 +1,16 @@
 class MatchmakingController < ApplicationController
-  before_action :check_user_level, only: [:show]
-
-  def show
-    @in_queue_users = QueueSizeQuery.call(current_user.level)
-    @user_rank = UserRankQuery.call(current_user.id).rank
-  end
+  before_action :check_user_level, only: [:create]
 
   def create
     if current_user.update(status: :in_queue)
-      MatchmakingJob.set(wait: 2.seconds).perform_later(current_user)
+      MatchmakingJob.set(wait: 1.second).perform_later(current_user)
+
+      @queue_size = QueueSizeQuery.call(current_user.level)
+      @current_user_rank = UserRankQuery.call(current_user.id).rank
+
       respond_to do |format|
         format.turbo_stream
-        format.html { redirect_to matchmaking_path }
+        format.html { redirect_to root_path }
       end
     else
       redirect_to root_path

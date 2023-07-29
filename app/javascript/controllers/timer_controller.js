@@ -2,7 +2,7 @@ import { Controller } from "@hotwired/stimulus"
 import Timer from "easytimer.js";
 
 export default class extends Controller {
-  static targets = [ 'timer' ]
+  static targets = ['timer']
   static values = { url: String }
 
   connect() {

@@ -7,7 +7,6 @@ Rails.application.routes.draw do
 
   post 'matchmaking', to: 'matchmaking#create', as: 'create_matchmaking'
   delete 'matchmaking', to: 'matchmaking#destroy', as: 'destroy_matchmaking'
-  get 'matchmaking', to: 'matchmaking#show', as: 'matchmaking'
 
   get 'static_pages/index'
 

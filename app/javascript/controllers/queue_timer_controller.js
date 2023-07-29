@@ -8,7 +8,7 @@ export default class extends Controller {
         const timer = new Timer();
         timer.start({
             precision: 'seconds',
-            startValues: { seconds: 0 },
+            startValues: { seconds: 1 },
             callback: (e) => {
                 this.timerTarget.innerText = timer.getTimeValues().toString();
             }
