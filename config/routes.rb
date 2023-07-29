@@ -4,7 +4,9 @@ Rails.application.routes.draw do
 
   get 'user_levels/edit', as: 'edit_user_level'
   patch 'user_levels/update', as: 'update_user_level'
-  get 'queues/index', as: 'queues'
+
+  post 'matchmaking', to: 'matchmaking#create', as: 'create_matchmaking'
+  delete 'matchmaking', to: 'matchmaking#destroy', as: 'destroy_matchmaking'
 
   get 'static_pages/index'
 

@@ -1,0 +1,7 @@
+<h4>Match Found!</h4>
+<h5><%= opponent.username %> (Rank <%= UserRankQuery.call(opponent.id).rank %>)</h5>
+<br>
+<h5>Starting in...</h5>
+<div data-controller="timer" data-timer-url-value="<%= root_path %>">
+  <h3><span data-timer-target="timer"></span></h3>
+</div>

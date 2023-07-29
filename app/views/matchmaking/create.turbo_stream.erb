@@ -1,0 +1,9 @@
+<%= turbo_stream.replace 'matchmaking-modal-content' do %>
+  <%= turbo_frame_tag :matchmaking do %>
+    <%= turbo_stream_from "queue_#{current_user.level}_#{current_user.id}" %>
+
+    <%= render partial: 'matchmaking/matchmaking_modal_content',
+               locals: { queue_size: @queue_size,
+                         current_user_rank: @current_user_rank } %>
+  <% end %>
+<% end %>

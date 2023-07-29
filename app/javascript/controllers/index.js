@@ -4,5 +4,8 @@
 
 import { application } from "./application"
 
-import HelloController from "./hello_controller"
-application.register("hello", HelloController)
+import TimerController from "./timer_controller"
+application.register("timer", TimerController)
+
+import QueueTimerController from "./queue_timer_controller"
+application.register("queue-timer", QueueTimerController)
