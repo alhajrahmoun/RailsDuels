@@ -5,7 +5,7 @@ class MatchmakingController < ApplicationController
     if current_user.update(status: :in_queue)
       MatchmakingJob.set(wait: 1.second).perform_later(current_user)
 
-      @queue_size = QueueSizeQuery.call(current_user.level)
+      @online_users = OnlineUsersQuery.call
       @current_user_rank = UserRankQuery.call(current_user.id).rank
 
       respond_to do |format|
@@ -18,7 +18,7 @@ class MatchmakingController < ApplicationController
   end
 
   def destroy
-    if current_user.update(status: :online)
+    if current_user.update(status: :idle)
       redirect_to root_path
     end
   end

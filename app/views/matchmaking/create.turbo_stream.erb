@@ -3,7 +3,7 @@
     <%= turbo_stream_from "queue_#{current_user.level}_#{current_user.id}" %>
 
     <%= render partial: 'matchmaking/matchmaking_modal_content',
-               locals: { queue_size: @queue_size,
+               locals: { online_users: @online_users,
                          current_user_rank: @current_user_rank } %>
   <% end %>
 <% end %>

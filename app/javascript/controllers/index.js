@@ -9,3 +9,6 @@ application.register("timer", TimerController)
 
 import QueueTimerController from "./queue_timer_controller"
 application.register("queue-timer", QueueTimerController)
+
+import OnlineStatusController from "./online_status_controller"
+application.register("online-status", OnlineStatusController)
