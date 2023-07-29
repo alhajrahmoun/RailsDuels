@@ -308,6 +308,11 @@ dir-glob@^3.0.1:
   dependencies:
     path-type "^4.0.0"
 
+easytimer.js@^4.5.4:
+  version "4.5.4"
+  resolved "https://registry.yarnpkg.com/easytimer.js/-/easytimer.js-4.5.4.tgz#7e8ac85cafa8b5e5a38dcffa2e4b0254c75c71fe"
+  integrity sha512-65STy2sW2z6e9XwfJqSa18JVNWuOu2cb/FXaZ/BbiDiPnTvC53njMS3oY1BsAIm/Dzt9c8YUvcgc8FoPttm1Gw==
+
 electron-to-chromium@^1.4.431:
   version "1.4.476"
   resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.4.476.tgz#693df619ce1785ada6d5aec71fd3ce7ace71adc3"

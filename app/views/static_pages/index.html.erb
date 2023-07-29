@@ -1,9 +1,15 @@
 <div class="pricing-header p-3 mb-4 pb-md-4 mx-auto text-center">
   <h1 class="display-4 fw-normal text-body-emphasis">Rails Duels</h1>
   <p class="fs-5 text-body-secondary">A thrilling quiz app that pitches Ruby on Rails developers against each other. Through fast-paced questioning, participants enhance their Rails knowledge whilst competing to win by gaining the most points in the least time. A perfect blend of fun, challenge, and learning!</p>
-  <%= link_to "Let's duel!", queues_path, class: 'btn btn-primary' %>
+
+  <%= button_to "Let's duel!", { action: 'create', controller: 'matchmaking' }, method: :post, class: 'btn btn-primary', 'data-bs-toggle': 'modal', 'data-bs-target': '#duel' %>
 </div>
 
+<div class="modal" id="duel">
+  <div class="modal-dialog modal-dialog-centered">
+    <div id="matchmaking_modal"></div>
+  </div>
+</div>
 <h2 class="display-6 text-center mb-4">How it works</h2>
 
 <div class="row row-cols-1 row-cols-md-3 mb-3 text-center">

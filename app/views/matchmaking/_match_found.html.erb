@@ -1,0 +1,6 @@
+<p>Match found</p>
+Your opponent is <%= opponent.username %> | Rank: <%= UserRankQuery.call(opponent.id).rank %>
+
+<div data-controller="timer" data-timer-url-value="<%= root_path %>">
+  <span data-timer-target="timer"></span>
+</div>
