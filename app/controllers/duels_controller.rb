@@ -4,6 +4,8 @@ class DuelsController < ApplicationController
   def show
     @duel = Duel.find(params[:id])
 
+    authorize @duel
+
     current_user.update(status: :in_duel)
   end
 end

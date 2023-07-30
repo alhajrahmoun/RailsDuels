@@ -38,6 +38,12 @@
       </header>
 
       <main data-controller="online-status">
+        <% if flash[:alert] %>
+          <div class="alert alert-danger" role="alert">
+            <%= flash[:alert] %>
+          </div>
+        <% end %>
+
         <%= yield %>
       </main>
     </div>
