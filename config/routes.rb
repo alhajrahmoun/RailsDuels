@@ -15,6 +15,7 @@ Rails.application.routes.draw do
     get 'summary', on: :member, to: 'summaries#show'
   end
 
+  get 'profile', to: 'profiles#show', as: 'profile'
   get 'ranks', to: 'ranks#index', as: 'ranks'
   get 'static_pages/index'
 

@@ -2,9 +2,13 @@ class UserLevelsController < ApplicationController
   def edit; end
 
   def update
-    current_user.update(user_level_params)
-
-    redirect_to root_path
+    if current_user.update(user_level_params)
+      flash[:notice] = 'Your level was successfully updated.'
+      redirect_to profile_path
+    else
+      flash[:alert] = 'There was a problem updating your level.'
+      render :edit
+    end
   end
 
   private
