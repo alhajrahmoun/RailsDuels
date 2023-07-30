@@ -1,10 +1,19 @@
 class MatchmakingService
+  attr_reader :duel
+
   def self.call(current_user)
     @current_user = current_user
     @opponent = MatchmakingQuery.call(current_user)
 
     if @opponent.present?
-      match_found
+      service = DuelsService.new(user_1: @current_user, user_2: @opponent).call
+      if service
+        @duel = service
+        ProblemsService.call(duel: @duel, complexity: @current_user.level)
+        match_found
+      else
+        no_match_found
+      end
     else
       no_match_found
     end
@@ -13,13 +22,13 @@ class MatchmakingService
   private
 
   class << self
-    attr_reader :current_user, :opponent
+    attr_reader :current_user, :opponent, :duel
 
     def match_found
       Turbo::StreamsChannel.broadcast_replace_to(
         queue_channel(current_user),
         target: 'match',
-        content: render_template('match_found', opponent: opponent)
+        content: render_template('match_found', opponent: opponent, duel_id: duel.id)
       )
 
       Turbo::StreamsChannel.broadcast_remove_to(
@@ -30,7 +39,7 @@ class MatchmakingService
       Turbo::StreamsChannel.broadcast_replace_to(
         queue_channel(opponent),
         target: 'match',
-        content: render_template('match_found', opponent: current_user)
+        content: render_template('match_found', opponent: current_user, duel_id: duel.id)
       )
 
       Turbo::StreamsChannel.broadcast_remove_to(
