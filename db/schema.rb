@@ -10,9 +10,51 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_07_29_200006) do
+ActiveRecord::Schema[7.0].define(version: 2023_07_30_010523) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "duel_problems", force: :cascade do |t|
+    t.bigint "duel_id", null: false
+    t.bigint "problem_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["duel_id"], name: "index_duel_problems_on_duel_id"
+    t.index ["problem_id"], name: "index_duel_problems_on_problem_id"
+  end
+
+  create_table "duels", force: :cascade do |t|
+    t.integer "state"
+    t.bigint "user_1_id", null: false
+    t.bigint "user_2_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_1_id"], name: "index_duels_on_user_1_id"
+    t.index ["user_2_id"], name: "index_duels_on_user_2_id"
+  end
+
+  create_table "problems", force: :cascade do |t|
+    t.string "description"
+    t.integer "points"
+    t.integer "complexity"
+    t.string "choices", default: [], array: true
+    t.string "answer"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "submissions", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "duel_id", null: false
+    t.bigint "problem_id", null: false
+    t.string "choice"
+    t.integer "points"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["duel_id"], name: "index_submissions_on_duel_id"
+    t.index ["problem_id"], name: "index_submissions_on_problem_id"
+    t.index ["user_id"], name: "index_submissions_on_user_id"
+  end
 
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
@@ -34,4 +76,11 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_29_200006) do
     t.index ["status"], name: "index_users_on_status"
   end
 
+  add_foreign_key "duel_problems", "duels"
+  add_foreign_key "duel_problems", "problems"
+  add_foreign_key "duels", "users", column: "user_1_id"
+  add_foreign_key "duels", "users", column: "user_2_id"
+  add_foreign_key "submissions", "duels"
+  add_foreign_key "submissions", "problems"
+  add_foreign_key "submissions", "users"
 end

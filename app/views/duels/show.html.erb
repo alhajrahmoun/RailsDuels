@@ -1,0 +1,22 @@
+<%= turbo_stream_from "duel_progress_#{@duel.id}" %>
+
+<div class="row row-cols-2 mb-5 text-center">
+  <div class="col">
+    <h3><%= @duel.user_1.username %></h3>
+    <br />
+
+    <%= render partial: 'user_progress', locals: { user: @duel.user_1, duel: @duel } %>
+  </div>
+  <div class="col">
+    <h3><%= @duel.user_2.username %></h3>
+    <br />
+
+    <%= render partial: 'user_progress', locals: { user: @duel.user_2, duel: @duel } %>
+  </div>
+</div>
+
+<div class="row row-cols-1 mb-3">
+   <%= tag.div id: 'duel' do %>
+    <%= turbo_frame_tag dom_id(@duel), src: duel_problems_path(duel_id: @duel.id), target: :_top %>
+   <% end %>
+</div>

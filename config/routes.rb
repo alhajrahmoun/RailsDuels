@@ -8,6 +8,13 @@ Rails.application.routes.draw do
   post 'matchmaking', to: 'matchmaking#create', as: 'create_matchmaking'
   delete 'matchmaking', to: 'matchmaking#destroy', as: 'destroy_matchmaking'
 
+  resources :duel_problems, only: [:index]
+
+  resources :duels do
+    resources :submissions, only: [:new, :create]
+    get 'summary', on: :member, to: 'summaries#show'
+  end
+
   get 'static_pages/index'
 
   root "static_pages#index"
