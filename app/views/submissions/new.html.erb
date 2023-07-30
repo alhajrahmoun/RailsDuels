@@ -1,8 +1,8 @@
 <%= turbo_frame_tag dom_id(@submission.problem) do %>
-  <div class="row row-cols-1 offset-3 mb-5">
+  <div class="offset-2 mb-5">
     <div class="col">
       <div class="mb-3">
-        <%= @submission.problem.description %>
+        <h5><%= @submission.problem.description %></h5>
       </div>
 
       <%= form_for [:duel, @submission] do |f| %>
