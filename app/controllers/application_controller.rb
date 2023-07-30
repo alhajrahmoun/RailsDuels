@@ -1,5 +1,5 @@
 class ApplicationController < ActionController::Base
-  before_action :authenticate_user!, unless: :static_page?
+  before_action :authenticate_user!, unless: -> { static_page? || ranks_page? }
   before_action :configure_permitted_parameters, if: :devise_controller?
 
   protected
@@ -10,5 +10,9 @@ class ApplicationController < ActionController::Base
 
   def static_page?
     is_a?(StaticPagesController)
+  end
+
+  def ranks_page?
+    is_a?(RanksController)
   end
 end
