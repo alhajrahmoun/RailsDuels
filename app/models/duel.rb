@@ -9,6 +9,8 @@ class Duel < ApplicationRecord
 
   enum state: [:starting, :ongoing, :finished]
 
+  after_update_commit :broadcast_state_change, if: -> { finished? }
+
   def initial_state
     hash = {
       points: 0,
@@ -34,5 +36,13 @@ class Duel < ApplicationRecord
     }
 
     OpenStruct.new(hash)
+  end
+
+  def broadcast_state_change
+    Turbo::StreamsChannel.broadcast_update_to(
+      "duel_#{id}_summary",
+      target: "duel_#{id}_summary",
+      content: ApplicationController.render(partial: "summaries/summary", locals: { duel: self })
+    )
   end
 end

@@ -1,7 +1,15 @@
 <%= turbo_frame_tag dom_id(@duel) do %>
+  <%= turbo_stream_from "#{dom_id(@duel)}_summary" %>
+
   <div class="row row-cols-1 mt-5 mb-5 text-center">
     <div class="col">
-      <h1><i class="bi bi-award-fill"></i> <%= @duel.winner.username %> won with <%= @duel.winner_points %> points</h1>
+      <%= tag.div id: "#{dom_id(@duel)}_summary" do %>
+        <% if @duel.finished? %>
+          <%= render 'summary', duel: @duel %>
+        <% else %>
+          <%= render 'waiting_for_opponent' %>
+        <% end %>
+      <% end %>
     </div>
   </div>
 <% end %>
