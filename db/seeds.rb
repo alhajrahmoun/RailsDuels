@@ -10,14 +10,14 @@ User.create(
   email: "test1@test.com",
   username: "user1",
   password: "123456",
-  level: :beginner
+  level: :intermediate
 )
 
 User.create(
   email: "test2@test.com",
   username: "user2",
   password: "123456",
-  level: :beginner
+  level: :intermediate
 )
 
 

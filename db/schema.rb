@@ -24,7 +24,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_30_145413) do
   end
 
   create_table "duels", force: :cascade do |t|
-    t.integer "state"
+    t.integer "state", default: 0
     t.bigint "user_1_id", null: false
     t.bigint "user_2_id", null: false
     t.datetime "created_at", null: false
