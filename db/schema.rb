@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_07_30_010523) do
+ActiveRecord::Schema[7.0].define(version: 2023_07_30_145413) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -29,8 +29,11 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_30_010523) do
     t.bigint "user_2_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "winner_id"
+    t.integer "winner_points"
     t.index ["user_1_id"], name: "index_duels_on_user_1_id"
     t.index ["user_2_id"], name: "index_duels_on_user_2_id"
+    t.index ["winner_id"], name: "index_duels_on_winner_id"
   end
 
   create_table "problems", force: :cascade do |t|

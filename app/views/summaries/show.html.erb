@@ -1,3 +1,7 @@
 <%= turbo_frame_tag dom_id(@duel) do %>
-  <%= @duel.user_1.username %> vs <%= @duel.user_2.username %>
+  <div class="row row-cols-1 mt-5 mb-5 text-center">
+    <div class="col">
+      <h1><i class="bi bi-award-fill"></i> <%= @duel.winner.username %> won with <%= @duel.winner_points %> points</h1>
+    </div>
+  </div>
 <% end %>

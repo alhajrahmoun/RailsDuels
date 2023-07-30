@@ -1,22 +1,24 @@
 <%= turbo_frame_tag dom_id(@submission.problem) do %>
   <div class="row row-cols-1 offset-3 mb-5">
-    <div class="mb-3">
-      <%= @submission.problem.description %>
-    </div>
-
-    <%= form_for [:duel, @submission] do |f| %>
-      <%= f.hidden_field :problem_id, value: @submission.problem.id %>
-
+    <div class="col">
       <div class="mb-3">
-        <%= f.collection_radio_buttons :choice, @submission.problem.choices, :to_s, :to_s do |option| %>
-          <div class="form-check">
-            <%= option.radio_button class: "form-check-input", required: true %>
-            <%= option.label class: "form-check-label" %>
-          </div>
-        <% end %>
+        <%= @submission.problem.description %>
       </div>
 
-      <%= f.submit class: 'btn btn-primary' %>
-    <% end %>
+      <%= form_for [:duel, @submission] do |f| %>
+        <%= f.hidden_field :problem_id, value: @submission.problem.id %>
+
+        <div class="mb-3">
+          <%= f.collection_radio_buttons :choice, @submission.problem.choices, :to_s, :to_s do |option| %>
+            <div class="form-check">
+              <%= option.radio_button class: "form-check-input", required: true %>
+              <%= option.label class: "form-check-label" %>
+            </div>
+          <% end %>
+        </div>
+
+        <%= f.submit class: 'btn btn-primary' %>
+      <% end %>
+    </div>
   </div>
 <% end %>
