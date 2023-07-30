@@ -30,7 +30,7 @@
             <% if user_signed_in? %>
               <%= link_to 'Sign out', destroy_user_session_path, class: 'me-3 py-2 link-body-emphasis text-decoration-none', data: { turbo_method: :delete } %>
               <%= link_to 'Profile', profile_path, class: 'me-3 py-2 link-body-emphasis text-decoration-none' %>
-              <span class="py-2">(Logged in as <b><%= current_user.username %> <%= "- " + current_user.level %></b>)</span>
+              <span class="py-2">(Logged in as <b><%= user_details(current_user) %></b>)</span>
             <% else %>
               <%= link_to 'Sign in', user_session_path, class: 'me-3 py-2 link-body-emphasis text-decoration-none' %>
               <%= link_to 'Sign up', new_user_registration_path, class: 'py-2 link-body-emphasis text-decoration-none' %>
