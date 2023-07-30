@@ -13,6 +13,15 @@ class DuelSummaryService
     user_1_points = @duel.user_1.submissions.where(duel: @duel).sum(:points)
     user_2_points = @duel.user_2.submissions.where(duel: @duel).sum(:points)
 
+    user_1_last_submission = @duel.user_1.submissions.where(duel: @duel).maximum(:created_at)
+    user_2_last_submission = @duel.user_2.submissions.where(duel: @duel).maximum(:created_at)
+
+    if user_1_last_submission > user_2_last_submission
+      user_2_points += 5
+    elsif user_2_last_submission > user_1_last_submission
+      user_1_points += 5
+    end
+
     if user_1_points > user_2_points
       @duel.user_1.increment!(:points, user_1_points)
       @duel.update(winner: @duel.user_1, winner_points: user_1_points)
