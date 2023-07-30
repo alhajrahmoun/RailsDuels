@@ -6,7 +6,8 @@ class MatchmakingService
     @opponent = MatchmakingQuery.call(current_user)
 
     if @opponent.present?
-      service = DuelsService.new(user_1: @current_user, user_2: @opponent).call
+      service = DuelsService.call(user_1: @current_user, user_2: @opponent)
+
       if service
         @duel = service
         ProblemsService.call(duel: @duel, complexity: @current_user.level)
@@ -25,27 +26,18 @@ class MatchmakingService
     attr_reader :current_user, :opponent, :duel
 
     def match_found
-      Turbo::StreamsChannel.broadcast_replace_to(
-        queue_channel(current_user),
-        target: 'match',
-        content: render_template('match_found', opponent: opponent, duel_id: duel.id)
-      )
+      [current_user, opponent].each do |user|
+        Turbo::StreamsChannel.broadcast_replace_to(
+          queue_channel(user),
+          target: 'match',
+          content: render_template('match_found', opponent: user, duel_id: duel.id)
+        )
 
-      Turbo::StreamsChannel.broadcast_remove_to(
-        queue_channel(current_user),
-        target: 'cancellation-section'
-      )
-
-      Turbo::StreamsChannel.broadcast_replace_to(
-        queue_channel(opponent),
-        target: 'match',
-        content: render_template('match_found', opponent: current_user, duel_id: duel.id)
-      )
-
-      Turbo::StreamsChannel.broadcast_remove_to(
-        queue_channel(opponent),
-        target: 'cancellation-section'
-      )
+        Turbo::StreamsChannel.broadcast_remove_to(
+          queue_channel(user),
+          target: 'cancellation-section'
+        )
+      end
     end
 
     def no_match_found

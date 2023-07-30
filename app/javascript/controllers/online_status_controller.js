@@ -5,15 +5,23 @@ export default class extends Controller {
     static targets = ['count']
 
     connect() {
-        this.subscription = consumer.subscriptions.create({ channel: "OnlineStatusChannel" }, {
-            connected: this._connected.bind(this),
-            disconnected: this._disconnected.bind(this),
-            received: this._received.bind(this)
-        });
+        let existingSubscription = this._findActiveSubscriptions();
+
+        if (existingSubscription.length !== 0) {
+            // Subscription already exists, so you don't need to create a new one
+            this.channel = existingSubscription[0]
+        } else {
+            // No existing subscription found, create a new one
+            this._createNewSubscription();
+        }
     }
 
     disconnect() {
-        consumer.subscriptions.remove(this.subscription);
+        let existingSubscription = this._findActiveSubscriptions();
+
+        consumer.subscriptions.remove(existingSubscription[0]);
+
+        consumer.disconnect();
     }
 
     _connected() {
@@ -31,5 +39,18 @@ export default class extends Controller {
         if (this.hasCountTarget) {
             this.countTarget.innerText = data;
         }
+    }
+
+    _createNewSubscription() {
+        this.subscription = consumer.subscriptions.create({ channel: "OnlineStatusChannel" }, {
+            connected: this._connected.bind(this),
+            disconnected: this._disconnected.bind(this),
+            received: this._received.bind(this)
+        });
+    }
+
+    _findActiveSubscriptions() {
+        let identifier = JSON.stringify({ channel: 'OnlineStatusChannel' })
+        return consumer.subscriptions.findAll(identifier);
     }
 }

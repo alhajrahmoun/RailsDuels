@@ -17,7 +17,7 @@ export default class extends Controller {
     });
 
     timer.addEventListener("targetAchieved", (e) =>{
-      Turbo.visit(this.urlValue);
+      window.location.href = this.urlValue;
     });
   }
 }
