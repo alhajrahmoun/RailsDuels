@@ -15,29 +15,31 @@
 
   <body>
   <div class="container py-3">
-    <header>
-      <div class="d-flex flex-column flex-md-row align-items-center pb-3 mb-4 border-bottom">
-        <a href="/" class="d-flex align-items-center link-body-emphasis text-decoration-none">
-          <%= image_tag 'logo.svg' %>
-          <span class="fs-4">Rails Duels</span>
-        </a>
+    <div class="content-wrap">
+      <header>
+        <div class="d-flex flex-column flex-md-row align-items-center pb-3 mb-5 border-bottom">
+          <a href="/" class="d-flex align-items-center link-body-emphasis text-decoration-none">
+            <%= image_tag 'logo.svg' %>
+            <span class="fs-4">Rails Duels</span>
+          </a>
 
-        <nav class="d-inline-flex mt-2 mt-md-0 ms-md-auto">
-          <%= link_to 'Home', root_path, class: 'me-3 py-2 link-body-emphasis text-decoration-none' %>
+          <nav class="d-inline-flex mt-2 mt-md-0 ms-md-auto">
+            <%= link_to 'Home', root_path, class: 'me-3 py-2 link-body-emphasis text-decoration-none' %>
 
-          <% if user_signed_in? %>
-            <%= link_to 'Sign out', destroy_user_session_path, class: 'me-3 py-2 link-body-emphasis text-decoration-none', data: { turbo_method: :delete } %>
-            <span class="py-2">(Logged in as <b><%= current_user.username %> - <%= current_user.level %></b>)</span>
-          <% else %>
-            <%= link_to 'Sign in', user_session_path, class: 'py-2 link-body-emphasis text-decoration-none' %>
-          <% end %>
-        </nav>
-      </div>
-    </header>
+            <% if user_signed_in? %>
+              <%= link_to 'Sign out', destroy_user_session_path, class: 'me-3 py-2 link-body-emphasis text-decoration-none', data: { turbo_method: :delete } %>
+              <span class="py-2">(Logged in as <b><%= current_user.username %> - <%= current_user.level %></b>)</span>
+            <% else %>
+              <%= link_to 'Sign in', user_session_path, class: 'py-2 link-body-emphasis text-decoration-none' %>
+            <% end %>
+          </nav>
+        </div>
+      </header>
 
-    <main data-controller="online-status">
-      <%= yield %>
-    </main>
+      <main data-controller="online-status">
+        <%= yield %>
+      </main>
+    </div>
 
     <footer class="pt-4 my-md-5 pt-md-5 border-top">
       <div class="row">
