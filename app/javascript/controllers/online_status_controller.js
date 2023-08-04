@@ -16,14 +16,6 @@ export default class extends Controller {
         }
     }
 
-    disconnect() {
-        let existingSubscription = this._findActiveSubscriptions();
-
-        consumer.subscriptions.remove(existingSubscription[0]);
-
-        consumer.disconnect();
-    }
-
     _connected() {
         // Called when the subscription is ready for use on the server
         console.log('connected');
