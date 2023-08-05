@@ -77,6 +77,9 @@ group :test do
   gem "capybara"
   gem "selenium-webdriver"
   gem "webdrivers"
+
+  gem 'simplecov', require: false
+  gem 'simplecov-json', require: false
 end
 
 gem "pundit", "~> 2.3"
