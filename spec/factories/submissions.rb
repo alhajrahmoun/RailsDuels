@@ -1,10 +1,12 @@
+# frozen_string_literal: true
+
 # spec/factories/submissions.rb
 
 FactoryBot.define do
   factory :submission do
-    user { build(:user) }
-    duel { build(:duel) }
-    problem { build(:problem) }
+    user
+    duel
+    problem
     choice { problem.answer }
   end
 end

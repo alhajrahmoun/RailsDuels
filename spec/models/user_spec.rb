@@ -2,38 +2,38 @@
 
 require 'rails_helper'
 
-RSpec.describe User, type: :model do
+RSpec.describe User do
   let(:user) { build(:user) }
 
-  context 'validations' do
+  describe 'validations' do
     it 'validates presence of email' do
       user.email = nil
-      expect(user.valid?).to be_falsey
+      expect(user).not_to be_valid
       expect(user.errors.messages[:email]).to include("can't be blank")
     end
 
     it 'validates uniqueness of email' do
       existing_user = create(:user)
       user.email = existing_user.email
-      expect(user.valid?).to be_falsey
-      expect(user.errors.messages[:email]).to include("has already been taken")
+      expect(user).not_to be_valid
+      expect(user.errors.messages[:email]).to include('has already been taken')
     end
 
     it 'validates presence of username' do
       user.username = nil
-      expect(user.valid?).to be_falsey
+      expect(user).not_to be_valid
       expect(user.errors.messages[:username]).to include("can't be blank")
     end
 
     it 'validates uniqueness of username' do
       existing_user = create(:user)
       user.username = existing_user.username
-      expect(user.valid?).to be_falsey
-      expect(user.errors.messages[:username]).to include("has already been taken")
+      expect(user).not_to be_valid
+      expect(user.errors.messages[:username]).to include('has already been taken')
     end
   end
 
-  context 'associations' do
+  describe 'associations' do
     it 'has many duels' do
       expect(user).to respond_to(:duels)
     end
@@ -47,7 +47,7 @@ RSpec.describe User, type: :model do
     end
   end
 
-  context 'enums' do
+  describe 'enums' do
     it 'defines a level enum' do
       expect(user).to respond_to(:level)
     end

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 RSpec.describe OnlineUsersQuery do
@@ -7,7 +9,7 @@ RSpec.describe OnlineUsersQuery do
 
   describe '.call' do
     it 'returns the total number of online users' do
-      result = OnlineUsersQuery.call
+      result = described_class.call
 
       expect(result).to eq(2)
     end

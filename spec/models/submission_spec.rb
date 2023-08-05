@@ -1,6 +1,8 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
-RSpec.describe Submission, type: :model do
+RSpec.describe Submission do
   describe '#set_points' do
     let(:problem) { create(:problem, answer: 'B', points: 5) }
 

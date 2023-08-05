@@ -3,6 +3,7 @@ require:
   - rubocop-rspec
   - rubocop-capybara
   - rubocop-performance
+  - rubocop-factory_bot
 
 AllCops:
   NewCops: enable
@@ -55,4 +56,7 @@ Style/HashSyntax:
   EnforcedShorthandSyntax: never
 
 Naming/VariableNumber:
+  Enabled: false
+
+RSpec/IndexedLet:
   Enabled: false
