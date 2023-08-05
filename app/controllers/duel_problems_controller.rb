@@ -6,8 +6,8 @@ class DuelProblemsController < ApplicationController
 
     @problems = current_user.problems_without_submissions(duel_id: @duel.id)
 
-    if @problems.empty?
-      redirect_to summary_duel_path(@duel), status: :see_other
-    end
+    return unless @problems.empty?
+
+    redirect_to summary_duel_path(@duel), status: :see_other
   end
 end

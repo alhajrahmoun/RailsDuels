@@ -4,18 +4,17 @@ class OnlineStatusChannel < ApplicationCable::Channel
   def subscribed
     stream_from 'online_status'
 
-    if current_user
-      current_user.update(online: true)
+    return unless current_user
 
-      broadcast_online_users_count
-    end
+    current_user.update(online: true)
+    broadcast_online_users_count
   end
 
   def unsubscribed
-    if current_user
-      current_user.update(online: false)
-      broadcast_online_users_count
-    end
+    return unless current_user
+
+    current_user.update(online: false)
+    broadcast_online_users_count
   end
 
   private

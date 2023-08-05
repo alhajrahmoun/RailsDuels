@@ -9,11 +9,7 @@ class Submission < ApplicationRecord
   after_create_commit :update_duel_progress
 
   def set_points
-    if choice == self.problem.answer
-      self.points = self.problem.points
-    else
-      self.points = 0
-    end
+    self.points = choice == problem.answer ? problem.points : 0
   end
 
   def update_duel_progress

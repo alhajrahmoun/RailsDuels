@@ -20,9 +20,9 @@ class MatchmakingController < ApplicationController
   end
 
   def destroy
-    if current_user.update(status: :idle)
-      redirect_to root_path
-    end
+    return unless current_user.update(status: :idle)
+
+    redirect_to root_path
   end
 
   private
