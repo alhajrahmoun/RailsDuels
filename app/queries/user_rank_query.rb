@@ -7,5 +7,6 @@ class UserRankQuery
     User.select('*')
         .from("(#{users_ranks}) as users")
         .find_by(id: user_id)
+        .rank
   end
 end
