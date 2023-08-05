@@ -66,6 +66,11 @@ group :development do
   gem 'capistrano3-puma', '~> 6.0.0.beta.1'
   gem 'capistrano-rails', require: false
   gem 'capistrano-rbenv', require: false
+
+  gem 'rubocop-capybara', require: false
+  gem 'rubocop-performance', require: false
+  gem 'rubocop-rails', require: false
+  gem 'rubocop-rspec', require: false
 end
 
 group :test do
