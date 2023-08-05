@@ -6,7 +6,7 @@ class MatchmakingController < ApplicationController
       MatchmakingJob.set(wait: 1.second).perform_later(current_user)
 
       @online_users = OnlineUsersQuery.call
-      @current_user_rank = UserRankQuery.call(current_user.id).rank
+      @current_user_rank = UserRankQuery.call(current_user.id)
 
       respond_to do |format|
         format.turbo_stream
