@@ -48,7 +48,7 @@ class Duel < ApplicationRecord
     Turbo::StreamsChannel.broadcast_update_to(
       "duel_#{id}_summary",
       target: "duel_#{id}_summary",
-      content: ApplicationController.render(partial: "summaries/summary", locals: { duel: self })
+      content: ApplicationController.render(partial: 'summaries/summary', locals: { duel: self })
     )
   end
 end

@@ -2,7 +2,7 @@
 
 class OnlineStatusChannel < ApplicationCable::Channel
   def subscribed
-    stream_from "online_status"
+    stream_from 'online_status'
 
     if current_user
       current_user.update(online: true)
@@ -22,7 +22,7 @@ class OnlineStatusChannel < ApplicationCable::Channel
 
   def broadcast_online_users_count
     ActionCable.server.broadcast(
-      "online_status",
+      'online_status',
       OnlineUsersQuery.call
     )
   end
