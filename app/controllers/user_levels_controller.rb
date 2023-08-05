@@ -5,10 +5,12 @@ class UserLevelsController < ApplicationController
 
   def update
     if current_user.update(user_level_params)
-      flash[:notice] = 'Your level was successfully updated.'
+      flash[:notice] = I18n.t('actions.success')
+
       redirect_to profile_path
     else
-      flash[:alert] = 'There was a problem updating your level.'
+      flash[:alert] = I18n.t('actions.failure')
+
       render :edit
     end
   end

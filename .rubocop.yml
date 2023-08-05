@@ -6,7 +6,7 @@ require:
 
 AllCops:
   NewCops: enable
-  
+
   Exclude:
     - 'db/**/*.rb'
     - 'config/initializers/**'
@@ -53,3 +53,6 @@ Metrics/PerceivedComplexity:
 
 Style/HashSyntax:
   EnforcedShorthandSyntax: never
+
+Naming/VariableNumber:
+  Enabled: false
