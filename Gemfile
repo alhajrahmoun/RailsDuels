@@ -70,9 +70,15 @@ end
 
 group :test do
   # Use system testing [https://guides.rubyonrails.org/testing.html#system-testing]
+  gem 'rspec-rails'
+  gem 'factory_bot_rails'
+  gem 'faker'
   gem "capybara"
   gem "selenium-webdriver"
   gem "webdrivers"
+
+  gem 'simplecov', require: false
+  gem 'simplecov-json', require: false
 end
 
 gem "pundit", "~> 2.3"
