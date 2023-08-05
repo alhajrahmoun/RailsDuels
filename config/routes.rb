@@ -13,7 +13,7 @@ Rails.application.routes.draw do
   resources :duel_problems, only: [:index]
 
   resources :duels do
-    resources :submissions, only: [:new, :create]
+    resources :submissions, only: %i[new create]
     get 'summary', on: :member, to: 'summaries#show'
   end
 

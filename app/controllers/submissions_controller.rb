@@ -2,7 +2,7 @@
 
 class SubmissionsController < ApplicationController
   before_action :authenticate_user!
-  before_action :find_duel, only: [:new, :create]
+  before_action :find_duel, only: %i[new create]
 
   def new
     @submission = Submission.new

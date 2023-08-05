@@ -5,11 +5,11 @@ class Duel < ApplicationRecord
   has_many :problems, through: :duel_problems
   has_many :submissions
 
-  belongs_to :user_1, class_name: 'User', foreign_key: 'user_1_id'
-  belongs_to :user_2, class_name: 'User', foreign_key: 'user_2_id'
-  belongs_to :winner, class_name: 'User', foreign_key: 'winner_id', optional: true
+  belongs_to :user_1, class_name: 'User'
+  belongs_to :user_2, class_name: 'User'
+  belongs_to :winner, class_name: 'User', optional: true
 
-  enum state: [:starting, :ongoing, :finished]
+  enum state: { starting: 0, ongoing: 1, finished: 2 }
 
   after_update_commit :broadcast_state_change, if: -> { finished? }
 
