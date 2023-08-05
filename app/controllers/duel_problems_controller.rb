@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class DuelProblemsController < ApplicationController
   def index
     @duel = Duel.find(params[:duel_id])

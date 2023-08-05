@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module DuelHelper
   def duel_progress(correct_answers:, points:, answered_questions:)
     step = 20

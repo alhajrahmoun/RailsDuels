@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class DuelProblem < ApplicationRecord
   belongs_to :duel
   belongs_to :problem

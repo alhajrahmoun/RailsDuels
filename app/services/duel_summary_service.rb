@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class DuelSummaryService
   attr_reader :duel, :user_1, :user_2
 

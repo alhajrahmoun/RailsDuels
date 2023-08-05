@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Problem < ApplicationRecord
   has_many :submissions
   has_many :duel_problems

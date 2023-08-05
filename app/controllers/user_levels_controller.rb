@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class UserLevelsController < ApplicationController
   def edit; end
 

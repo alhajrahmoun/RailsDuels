@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class OnlineStatusChannel < ApplicationCable::Channel
   def subscribed
     stream_from "online_status"

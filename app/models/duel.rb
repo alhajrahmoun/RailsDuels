@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Duel < ApplicationRecord
   has_many :duel_problems
   has_many :problems, through: :duel_problems

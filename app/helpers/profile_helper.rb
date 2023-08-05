@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module ProfileHelper
   def duels_table_row_color(duel)
     if duel.winner == current_user

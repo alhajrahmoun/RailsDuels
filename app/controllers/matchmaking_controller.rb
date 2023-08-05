@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class MatchmakingController < ApplicationController
   before_action :check_user_level, only: [:create]
 

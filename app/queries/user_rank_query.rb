@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class UserRankQuery
   def self.call(user_id)
     users_ranks = RanksQuery.call.to_sql
