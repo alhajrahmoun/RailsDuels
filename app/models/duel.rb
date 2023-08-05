@@ -18,13 +18,7 @@ class Duel < ApplicationRecord
   end
 
   def initial_state
-    hash = {
-      points: 0,
-      submissions: 0,
-      correct_answers: 0,
-    }
-
-    OpenStruct.new(hash)
+    Struct.new(points: 0, submissions: 0, correct_answers: 0)
   end
 
   def user_state(user)
@@ -35,13 +29,11 @@ class Duel < ApplicationRecord
     points = user_submissions.sum(&:points)
     submissions_count = submissions.where(user: user).size
 
-    hash = {
+    Struct.new(
       points: points,
       submissions: submissions_count,
-      correct_answers: user_submissions.select { |submission| submission.points > 0 }.size,
-    }
-
-    OpenStruct.new(hash)
+      correct_answers: user_submissions.count { |submission| submission.points.positive? }
+    )
   end
 
   def broadcast_state_change
