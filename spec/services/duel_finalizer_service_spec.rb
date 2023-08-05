@@ -1,10 +1,12 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 RSpec.describe DuelFinalizerService, type: :service do
   include ActiveSupport::Testing::TimeHelpers
 
   let(:duel) { create(:duel, state: :ongoing) }
-  let(:service) { DuelFinalizerService.new(duel) }
+  let(:service) { described_class.new(duel) }
 
   describe '#call' do
     context 'when duel is finished' do
@@ -13,7 +15,7 @@ RSpec.describe DuelFinalizerService, type: :service do
       end
 
       it 'does not update duel state' do
-        expect { service.call }.not_to change { duel.state }
+        expect { service.call }.not_to(change(duel, :state))
       end
     end
 
@@ -23,7 +25,7 @@ RSpec.describe DuelFinalizerService, type: :service do
       end
 
       it 'does not update duel state' do
-        expect { service.call }.not_to change { duel.state }
+        expect { service.call }.not_to(change(duel, :state))
       end
     end
 
@@ -40,7 +42,7 @@ RSpec.describe DuelFinalizerService, type: :service do
       end
 
       it 'updates duel state to finished' do
-        expect { service.call }.to change { duel.state }.from('ongoing').to('finished')
+        expect { service.call }.to change(duel, :state).from('ongoing').to('finished')
       end
 
       it 'updates user_1 status to idle' do
@@ -60,11 +62,11 @@ RSpec.describe DuelFinalizerService, type: :service do
       end
 
       it 'updates duel winner' do
-        expect { service.call }.to change { duel.winner }.from(nil).to(duel.user_1)
+        expect { service.call }.to change(duel, :winner).from(nil).to(duel.user_1)
       end
 
       it 'updates duel winner points' do
-        expect { service.call }.to change { duel.winner_points }.from(nil).to(55)
+        expect { service.call }.to change(duel, :winner_points).from(nil).to(55)
       end
     end
 
@@ -91,7 +93,7 @@ RSpec.describe DuelFinalizerService, type: :service do
       end
 
       it 'updates duel state to finished' do
-        expect { service.call }.to change { duel.state }.from('ongoing').to('finished')
+        expect { service.call }.to change(duel, :state).from('ongoing').to('finished')
       end
 
       it 'updates user_1 status to idle' do
@@ -111,11 +113,11 @@ RSpec.describe DuelFinalizerService, type: :service do
       end
 
       it 'updates duel winner' do
-        expect { service.call }.not_to change { duel.winner }.from(nil)
+        expect { service.call }.not_to change(duel, :winner).from(nil)
       end
 
       it 'updates duel winner points' do
-        expect { service.call }.to change { duel.winner_points }.from(nil).to(50)
+        expect { service.call }.to change(duel, :winner_points).from(nil).to(50)
       end
     end
   end

@@ -1,13 +1,11 @@
+# frozen_string_literal: true
+
 # spec/factories/duels.rb
 FactoryBot.define do
   factory :duel do
-    user_1 { build(:user) }
-    user_2 { build(:user) }
+    user_1 factory: %i[user]
+    user_2 factory: %i[user]
     winner { nil }
     state { :starting }
-
-    # after(:create) do |duel|
-    #   create_list(:problem, 3, duels: [duel])
-    # end
   end
 end

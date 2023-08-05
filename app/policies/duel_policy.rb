@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class DuelPolicy
   attr_reader :user, :duel
 

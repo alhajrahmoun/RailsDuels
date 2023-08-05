@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ApplicationController < ActionController::Base
   before_action :authenticate_user!, unless: -> { static_page? || ranks_page? }
   before_action :configure_permitted_parameters, if: :devise_controller?
@@ -22,13 +24,13 @@ class ApplicationController < ActionController::Base
   private
 
   def user_not_authorized
-    flash[:alert] = "You are not authorized to perform this action."
+    flash[:alert] = I18n.t('errors.messages.unauthorized')
 
     redirect_back(fallback_location: root_path)
   end
 
   def record_not_found
-    flash[:alert] = "You are not authorized to perform this action."
+    flash[:alert] = I18n.t('errors.messages.record_not_found')
 
     redirect_back(fallback_location: root_path)
   end

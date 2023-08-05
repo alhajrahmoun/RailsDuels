@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class MatchmakingQuery
   def self.call(user)
     User.in_queue
