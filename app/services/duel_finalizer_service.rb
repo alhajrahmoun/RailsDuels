@@ -1,4 +1,4 @@
-class DuelSummaryService
+class DuelFinalizerService
   attr_reader :duel, :user_1, :user_2
 
   def initialize(duel)
