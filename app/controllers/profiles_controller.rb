@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ProfilesController < ApplicationController
   before_action :authenticate_user!
 
@@ -5,10 +7,12 @@ class ProfilesController < ApplicationController
 
   def update
     if current_user.update(user_params)
-      flash[:notice] = 'Your profile was successfully updated.'
+      flash[:notice] = I18n.t('actions.success')
+
       redirect_to profile_path
     else
-      flash[:alert] = 'There was a problem updating your profile.'
+      flash[:alert] = I18n.t('actions.failure')
+
       render :show
     end
   end

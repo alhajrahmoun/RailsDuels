@@ -1,26 +1,27 @@
+# frozen_string_literal: true
+
 class OnlineStatusChannel < ApplicationCable::Channel
   def subscribed
-    stream_from "online_status"
+    stream_from 'online_status'
 
-    if current_user
-      current_user.update(online: true)
+    return unless current_user
 
-      broadcast_online_users_count
-    end
+    current_user.update(online: true)
+    broadcast_online_users_count
   end
 
   def unsubscribed
-    if current_user
-      current_user.update(online: false)
-      broadcast_online_users_count
-    end
+    return unless current_user
+
+    current_user.update(online: false)
+    broadcast_online_users_count
   end
 
   private
 
   def broadcast_online_users_count
     ActionCable.server.broadcast(
-      "online_status",
+      'online_status',
       OnlineUsersQuery.call
     )
   end

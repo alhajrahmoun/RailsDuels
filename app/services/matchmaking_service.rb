@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class MatchmakingService
   attr_reader :duel
 
@@ -20,10 +22,10 @@ class MatchmakingService
     end
   end
 
-  private
-
   class << self
     attr_reader :current_user, :opponent, :duel
+
+    private
 
     def match_found
       Turbo::StreamsChannel.broadcast_replace_to(

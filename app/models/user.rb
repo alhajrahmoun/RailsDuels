@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class User < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
@@ -7,15 +9,14 @@ class User < ApplicationRecord
   validates :email, presence: true, uniqueness: true
   validates :username, presence: true, uniqueness: true
 
-  enum level: [:beginner, :intermediate, :advanced, :expert]
-  enum status: [:idle, :in_queue, :in_duel]
+  enum level: { beginner: 0, intermediate: 1, advanced: 2, expert: 3 }
+  enum status: { idle: 0, in_queue: 1, in_duel: 2 }
 
   scope :online, -> { where(online: true) }
 
-  has_many :user_1_duels, class_name: 'Duel', foreign_key: 'user_1_id'
-  has_many :user_2_duels, class_name: 'Duel', foreign_key: 'user_2_id'
+  has_many :user_1_duels, class_name: 'Duel', foreign_key: 'user_1_id', inverse_of: :user_1
+  has_many :user_2_duels, class_name: 'Duel', foreign_key: 'user_2_id', inverse_of: :user_2
   has_many :duels
-  has_many :won_duels, class_name: 'Duel', foreign_key: 'winner_id'
   has_many :submissions
   has_many :problems, through: :submissions
 

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ProblemsService
   def self.call(duel:, complexity:)
     @problems = Problem.where(complexity: complexity)

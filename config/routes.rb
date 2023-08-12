@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 Rails.application.routes.draw do
   devise_for :users
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
@@ -11,7 +13,7 @@ Rails.application.routes.draw do
   resources :duel_problems, only: [:index]
 
   resources :duels do
-    resources :submissions, only: [:new, :create]
+    resources :submissions, only: %i[new create]
     get 'summary', on: :member, to: 'summaries#show'
   end
 
@@ -19,5 +21,5 @@ Rails.application.routes.draw do
   get 'ranks', to: 'ranks#index', as: 'ranks'
   get 'static_pages/index'
 
-  root "static_pages#index"
+  root 'static_pages#index'
 end
