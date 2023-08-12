@@ -4,7 +4,7 @@
 lock '~> 3.17.3'
 
 set :application, 'RailsDuels'
-set :repo_url, 'git@github.com:rails-hackathon/team-152.git'
+set :repo_url, 'git@github.com:alhajrahmoun/RailsDuels.git'
 set :branch, 'main'
 set :deploy_to, '/home/ubuntu/apps/rails_duels'
 
