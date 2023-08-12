@@ -20,6 +20,16 @@ class User < ApplicationRecord
   has_many :submissions
   has_many :problems, through: :submissions
 
+  after_update_commit :update_queue_status, if: :went_offline?
+
+  def went_offline?
+    saved_change_to_online? && offline?
+  end
+
+  def offline?
+    !online?
+  end
+
   def duels
     user_1_duels.or(user_2_duels)
   end
@@ -33,5 +43,11 @@ class User < ApplicationRecord
 
     # Find all problems that are in the duel but the user has not made a submission for
     Problem.where(id: duel_problem_ids - submitted_problems_ids)
+  end
+
+  def update_queue_status
+    return unless reload && in_queue?
+
+    update(status: :idle)
   end
 end

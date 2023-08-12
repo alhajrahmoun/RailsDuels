@@ -82,4 +82,13 @@ RSpec.describe User do
       expect(problems).not_to include(duel_problem_2.problem)
     end
   end
+
+  describe '#update_queue_status' do
+    let(:user) { create(:user, status: :in_queue) }
+
+    it 'sets the status to idle' do
+      user.update_queue_status
+      expect(user.reload.status).to eq('idle')
+    end
+  end
 end
