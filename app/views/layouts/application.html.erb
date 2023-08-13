@@ -28,8 +28,8 @@
             <%= link_to 'Leaderboard', leaderboard_path, class: 'me-3 py-2 link-body-emphasis text-decoration-none' %>
 
             <% if user_signed_in? %>
-              <%= link_to 'Sign out', destroy_user_session_path, class: 'me-3 py-2 link-body-emphasis text-decoration-none', data: { turbo_method: :delete } %>
               <%= link_to 'Profile', profile_path, class: 'me-3 py-2 link-body-emphasis text-decoration-none' %>
+              <%= link_to 'Sign out', destroy_user_session_path, class: 'me-3 py-2 link-body-emphasis text-decoration-none', data: { turbo_method: :delete } %>
               <span class="py-2">(Logged in as <b><%= user_details(current_user) %></b>)</span>
             <% else %>
               <%= link_to 'Sign in', user_session_path, class: 'me-3 py-2 link-body-emphasis text-decoration-none' %>
