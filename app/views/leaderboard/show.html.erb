@@ -1,0 +1,22 @@
+<%= turbo_frame_tag "#{params[:level]}_leaderboard" do %>
+  <table class="table table-borderless">
+    <thead>
+    <tr>
+      <th>Rank</th>
+      <th>Username</th>
+      <th>Points</th>
+      <th>Total Duels</th>
+      <th>Level</th>
+    </tr>
+    </thead>
+    <% @users_ranking.each do |user_ranking| %>
+      <tr class="<%= "table-primary" if current_user&.username == user_ranking.username %>">
+        <td><%= user_ranking.rank %></td>
+        <td><%= user_ranking.username %></td>
+        <td><%= user_ranking.points %></td>
+        <td><%= user_ranking.duels_count %></td>
+        <td><%= user_ranking.level %></td>
+      </tr>
+    <% end %>
+  </table>
+<% end %>

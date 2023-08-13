@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_08_05_015705) do
+ActiveRecord::Schema[7.0].define(version: 2023_08_13_160859) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -72,6 +72,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_05_015705) do
     t.integer "status", default: 0
     t.integer "points", default: 0
     t.boolean "online", default: false
+    t.integer "duels_count", default: 0
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["level"], name: "index_users_on_level"
     t.index ["points"], name: "index_users_on_points", order: :desc

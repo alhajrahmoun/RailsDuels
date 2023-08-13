@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class ApplicationController < ActionController::Base
-  before_action :authenticate_user!, unless: -> { static_page? || ranks_page? }
+  before_action :authenticate_user!, unless: -> { static_page? || leaderboard_page? }
   before_action :configure_permitted_parameters, if: :devise_controller?
   include Pundit::Authorization
   rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
@@ -17,8 +17,8 @@ class ApplicationController < ActionController::Base
     is_a?(StaticPagesController)
   end
 
-  def ranks_page?
-    is_a?(RanksController)
+  def leaderboard_page?
+    is_a?(LeaderboardController)
   end
 
   private

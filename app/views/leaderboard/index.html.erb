@@ -1,0 +1,19 @@
+<div class="row row-cols-2 mb-5 text-center">
+  <div class="offset-3 mb-5">
+    <div class="col">
+      <ul class="nav nav-tabs" id="myTab" role="tablist">
+
+        <% User.levels.keys.each do |level| %>
+          <li class="nav-item" role="presentation">
+            <button class="nav-link <%= 'active' if active_level(current_user) == level %>" id="<%= level %>-tab" data-bs-toggle="tab" data-bs-target="#<%= level %>" type="button" role="tab" aria-controls="<%= level %>" aria-selected="true"><%= level.capitalize %></button>
+          </li>
+        <% end %>
+      </ul>
+      <div class="tab-content" id="myTabContent">
+        <% User.levels.keys.each do |level| %>
+          <%= render 'level_leaderboard', active: active_level(current_user) == level, level: level %>
+        <% end %>
+      </div>
+  </div>
+  </div>
+</div>

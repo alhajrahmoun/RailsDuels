@@ -25,7 +25,7 @@
 
           <nav class="d-inline-flex mt-2 mt-md-0 ms-md-auto">
             <%= link_to 'Home', root_path, class: 'me-3 py-2 link-body-emphasis text-decoration-none' %>
-            <%= link_to 'Ranks', ranks_path, class: 'me-3 py-2 link-body-emphasis text-decoration-none' %>
+            <%= link_to 'Leaderboard', leaderboard_path, class: 'me-3 py-2 link-body-emphasis text-decoration-none' %>
 
             <% if user_signed_in? %>
               <%= link_to 'Sign out', destroy_user_session_path, class: 'me-3 py-2 link-body-emphasis text-decoration-none', data: { turbo_method: :delete } %>
