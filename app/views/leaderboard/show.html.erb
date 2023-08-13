@@ -6,7 +6,6 @@
       <th>Username</th>
       <th>Points</th>
       <th>Total Duels</th>
-      <th>Level</th>
     </tr>
     </thead>
     <% @users_ranking.each do |user_ranking| %>
@@ -15,7 +14,6 @@
         <td><%= user_ranking.username %></td>
         <td><%= user_ranking.points %></td>
         <td><%= user_ranking.duels_count %></td>
-        <td><%= user_ranking.level %></td>
       </tr>
     <% end %>
   </table>
