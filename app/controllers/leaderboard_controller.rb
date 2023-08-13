@@ -4,7 +4,7 @@ class LeaderboardController < ApplicationController
   def index; end
 
   def show
-    @users_ranking = RanksQuery.call(limit: 10, min_points: 10, level: params[:level])
+    @users_ranking = RanksQuery.call(limit: 10, level: params[:level])
 
     return unless current_user
     return unless current_user.level == params[:level]
