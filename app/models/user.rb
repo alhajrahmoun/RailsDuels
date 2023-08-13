@@ -20,6 +20,11 @@ class User < ApplicationRecord
   has_many :problems, through: :submissions
 
   after_update_commit :update_queue_status, if: :went_offline?
+  after_update_commit :reset_points, if: :saved_change_to_level?
+
+  def reset_points
+    update(points: 0)
+  end
 
   def went_offline?
     saved_change_to_online? && offline?
