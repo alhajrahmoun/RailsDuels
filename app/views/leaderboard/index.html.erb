@@ -1,26 +1,19 @@
-<div class="row row-cols-2 mb-3 text-center">
+<div class="row row-cols-2 mb-5 text-center">
   <div class="offset-3 mb-5">
-    <h2 class="mb-3"><u>Leaderboard</u></h2>
-
     <div class="col">
-    <table class="table table-borderless">
-      <thead>
-      <tr>
-        <th>Rank</th>
-        <th>Username</th>
-        <th>Points</th>
-        <th>Level</th>
-      </tr>
-      </thead>
-      <% @ranks.each do |rank| %>
-      <tr>
-        <td><%= rank.rank %></td>
-        <td><%= rank.username %></td>
-        <td><%= rank.points %></td>
-        <td><%= rank.level %></td>
-      </tr>
-      <% end %>
-    </table>
+      <ul class="nav nav-tabs" id="myTab" role="tablist">
+
+        <% User.levels.keys.each do |level| %>
+          <li class="nav-item" role="presentation">
+            <button class="nav-link <%= 'active' if active_level(current_user) == level %>" id="<%= level %>-tab" data-bs-toggle="tab" data-bs-target="#<%= level %>" type="button" role="tab" aria-controls="<%= level %>" aria-selected="true"><%= level.capitalize %></button>
+          </li>
+        <% end %>
+      </ul>
+      <div class="tab-content" id="myTabContent">
+        <% User.levels.keys.each do |level| %>
+          <%= render 'level_leaderboard', active: active_level(current_user) == level, level: level %>
+        <% end %>
+      </div>
   </div>
   </div>
 </div>
