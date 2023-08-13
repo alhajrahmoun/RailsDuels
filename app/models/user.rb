@@ -16,7 +16,6 @@ class User < ApplicationRecord
 
   has_many :user_1_duels, class_name: 'Duel', foreign_key: 'user_1_id', inverse_of: :user_1
   has_many :user_2_duels, class_name: 'Duel', foreign_key: 'user_2_id', inverse_of: :user_2
-  has_many :duels
   has_many :submissions
   has_many :problems, through: :submissions
 

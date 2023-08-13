@@ -18,7 +18,8 @@ Rails.application.routes.draw do
   end
 
   get 'profile', to: 'profiles#show', as: 'profile'
-  get 'ranks', to: 'ranks#index', as: 'ranks'
+  get 'leaderboard', to: 'leaderboard#index', as: 'leaderboard'
+  get 'leaderboard/:level', to: 'leaderboard#show', as: 'level_leaderboard'
   get 'static_pages/index'
 
   root 'static_pages#index'
