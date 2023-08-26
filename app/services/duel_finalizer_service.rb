@@ -32,11 +32,11 @@ class DuelFinalizerService
     user_1_points = sum_points(user_1)
     user_2_points = sum_points(user_2)
 
-    if user_1_points.nonzero? && user_2_points.nonzero?
+    if user_1_points.nonzero? || user_2_points.nonzero?
       adjust_points_based_on_last_submission(user_1_points, user_2_points)
+    else
+      [user_1_points, user_2_points]
     end
-
-    [user_1_points, user_2_points]
   end
 
   def update_points_and_winner(user_1_points, user_2_points)
