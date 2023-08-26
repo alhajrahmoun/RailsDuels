@@ -8,7 +8,7 @@ class MatchmakingService
     @opponent = MatchmakingQuery.call(current_user)
 
     if @opponent.present?
-      service = DuelsService.call(user_1: @current_user, user_2: @opponent)
+      service = DuelsService.call(participants: [@current_user, @opponent])
 
       if service
         @duel = service

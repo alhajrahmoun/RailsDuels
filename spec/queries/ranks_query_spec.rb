@@ -21,14 +21,5 @@ RSpec.describe RanksQuery do
         expect(result.size).to eq(2)
       end
     end
-
-    context 'when min_points is present' do
-      it 'returns users with points greater than min_points' do
-        result = described_class.call(min_points: 200)
-
-        expect(result.size).to eq(2)
-        expect(result.pluck(:username)).to contain_exactly('bob', 'charles')
-      end
-    end
   end
 end

@@ -10,9 +10,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_08_13_160859) do
+ActiveRecord::Schema[7.0].define(version: 2023_08_26_181555) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "duel_participations", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "duel_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["duel_id"], name: "index_duel_participations_on_duel_id"
+    t.index ["user_id"], name: "index_duel_participations_on_user_id"
+  end
 
   create_table "duel_problems", force: :cascade do |t|
     t.bigint "duel_id", null: false
@@ -25,14 +34,10 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_13_160859) do
 
   create_table "duels", force: :cascade do |t|
     t.integer "state", default: 0
-    t.bigint "user_1_id", null: false
-    t.bigint "user_2_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "winner_id"
     t.integer "winner_points"
-    t.index ["user_1_id"], name: "index_duels_on_user_1_id"
-    t.index ["user_2_id"], name: "index_duels_on_user_2_id"
     t.index ["winner_id"], name: "index_duels_on_winner_id"
   end
 
@@ -72,7 +77,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_13_160859) do
     t.integer "status", default: 0
     t.integer "points", default: 0
     t.boolean "online", default: false
-    t.integer "duels_count", default: 0
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["level"], name: "index_users_on_level"
     t.index ["points"], name: "index_users_on_points", order: :desc
@@ -81,10 +85,10 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_13_160859) do
     t.index ["username"], name: "index_users_on_username", unique: true
   end
 
+  add_foreign_key "duel_participations", "duels"
+  add_foreign_key "duel_participations", "users"
   add_foreign_key "duel_problems", "duels"
   add_foreign_key "duel_problems", "problems"
-  add_foreign_key "duels", "users", column: "user_1_id"
-  add_foreign_key "duels", "users", column: "user_2_id"
   add_foreign_key "submissions", "duels"
   add_foreign_key "submissions", "problems"
   add_foreign_key "submissions", "users"

@@ -59,13 +59,14 @@ RSpec.describe User do
 
   describe '#duels' do
     let(:user) { create(:user) }
-    let(:duel_1) { create(:duel, user_1: user) }
-    let!(:duel_2) { create(:duel, user_2: user) }
+    let(:duel_1) { create(:duel) }
+    let!(:duel_2) { create(:duel) }
+    let!(:duel_participation_1) { create(:duel_participation, user: user, duel: duel_1) }
+    let!(:duel_participation_2) { create(:duel_participation, user: user, duel: duel_2) }
 
     it 'returns all duels of the user' do
       duels = user.duels
-      expect(duels).to include(duel_1)
-      expect(duels).to include(duel_2)
+      expect(duels).to contain_exactly(duel_1, duel_2)
     end
   end
 

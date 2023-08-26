@@ -1,7 +1,9 @@
 # frozen_string_literal: true
 
 class DuelsService
-  def self.call(user_1:, user_2:)
-    Duel.create(user_1: user_1, user_2: user_2, state: :starting)
+  def self.call(participants:)
+    duel = Duel.create(state: :starting)
+    duel.users << participants
+    duel
   end
 end

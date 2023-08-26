@@ -5,8 +5,7 @@ class DuelFinalizerService
 
   def initialize(duel)
     @duel = duel
-    @user_1 = duel.user_1
-    @user_2 = duel.user_2
+    @user_1, @user_2 = duel.users
   end
 
   def call
@@ -26,7 +25,7 @@ class DuelFinalizerService
   end
 
   def set_users_status_to_idle
-    [user_1, user_2].each { |user| user.update(status: :idle) }
+    [user_1, user_2].each { |user| user.update!(status: :idle) }
   end
 
   def calculate_points
@@ -67,7 +66,7 @@ class DuelFinalizerService
     else
       increment_points(user_1, user_1_points)
       increment_points(user_2, user_2_points)
-      duel.update(winner: nil, winner_points: user_1_points)
+      duel.update!(winner: nil, winner_points: user_1_points)
     end
   end
 
@@ -77,6 +76,6 @@ class DuelFinalizerService
 
   def increment_points_and_set_winner(user, points)
     increment_points(user, points)
-    duel.update(winner: user, winner_points: points)
+    duel.update!(winner: user, winner_points: points)
   end
 end

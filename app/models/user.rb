@@ -16,6 +16,8 @@ class User < ApplicationRecord
 
   has_many :user_1_duels, class_name: 'Duel', foreign_key: 'user_1_id', inverse_of: :user_1
   has_many :user_2_duels, class_name: 'Duel', foreign_key: 'user_2_id', inverse_of: :user_2
+  has_many :duel_participations
+  has_many :duels, through: :duel_participations
   has_many :submissions
   has_many :problems, through: :submissions
 
@@ -32,10 +34,6 @@ class User < ApplicationRecord
 
   def offline?
     !online?
-  end
-
-  def duels
-    user_1_duels.or(user_2_duels)
   end
 
   def problems_without_submissions(duel_id:)

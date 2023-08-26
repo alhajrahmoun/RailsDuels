@@ -2,16 +2,16 @@
 
 <div class="row row-cols-2 mb-5 text-center">
   <div class="col">
-    <h3><%= @duel.user_1.username %></h3>
+    <h3><%= @user_1.username %></h3>
     <br />
 
-    <%= render partial: 'user_progress', locals: { user: @duel.user_1, duel: @duel } %>
+    <%= render partial: 'user_progress', locals: { user: @user_1, duel: @duel } %>
   </div>
   <div class="col">
-    <h3><%= @duel.user_2.username %></h3>
+    <h3><%= @user_2.username %></h3>
     <br />
 
-    <%= render partial: 'user_progress', locals: { user: @duel.user_2, duel: @duel } %>
+    <%= render partial: 'user_progress', locals: { user: @user_2, duel: @duel } %>
   </div>
 </div>
 
