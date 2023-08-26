@@ -40,10 +40,6 @@ class Duel < ApplicationRecord
   end
 
   def broadcast_state_change
-    Turbo::StreamsChannel.broadcast_update_to(
-      "duel_#{id}_summary",
-      target: "duel_#{id}_summary",
-      content: ApplicationController.render(partial: 'summaries/summary', locals: { duel: self })
-    )
+    Broadcasters::DuelStateBroadcaster.broadcast_to(self)
   end
 end

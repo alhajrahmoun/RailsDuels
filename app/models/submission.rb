@@ -13,10 +13,6 @@ class Submission < ApplicationRecord
   end
 
   def update_duel_progress
-    Turbo::StreamsChannel.broadcast_update_to(
-      "duel_progress_#{duel.id}",
-      target: "user_#{user_id}_progress",
-      content: ApplicationController.render(partial: 'duels/user_progress', locals: { user: user, duel: duel })
-    )
+    Broadcasters::DuelProgressBroadcaster.broadcast_to(duel, user)
   end
 end
