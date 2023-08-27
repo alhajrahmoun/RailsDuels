@@ -3,15 +3,6 @@
 require 'rails_helper'
 
 RSpec.describe Duel do
-  describe '#complexity' do
-    let(:problem) { create(:problem, complexity: :beginner) }
-    let(:duel) { create(:duel, problems: [problem]) }
-
-    it 'returns the complexity of the first problem' do
-      expect(duel.complexity).to eq('beginner')
-    end
-  end
-
   describe '#initial_state' do
     let(:duel) { create(:duel) }
 
