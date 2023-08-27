@@ -5,5 +5,5 @@ class Problem < ApplicationRecord
   has_many :duel_problems
   has_many :duels, through: :duel_problems
 
-  enum complexity: { beginner: 0, intermediate: 1, advanced: 2, expert: 3 }
+  belongs_to :problem_set
 end

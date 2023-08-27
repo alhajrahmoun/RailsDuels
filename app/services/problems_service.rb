@@ -2,10 +2,12 @@
 
 class ProblemsService
   def self.call(duel:, complexity:)
-    @problems = Problem.where(complexity: complexity)
-                       .order('RANDOM()')
-                       .limit(5)
+    problem_set = ProblemSet.find_by(user_id: nil, complexity: complexity)
 
-    duel.problems << @problems
+    problems = problem_set.problems
+                          .order('RANDOM()')
+                          .limit(5)
+
+    duel.problems << problems
   end
 end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_08_26_181555) do
+ActiveRecord::Schema[7.0].define(version: 2023_08_27_131524) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -41,14 +41,25 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_26_181555) do
     t.index ["winner_id"], name: "index_duels_on_winner_id"
   end
 
+  create_table "problem_sets", force: :cascade do |t|
+    t.string "name"
+    t.integer "complexity"
+    t.bigint "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["complexity"], name: "index_problem_sets_on_complexity"
+    t.index ["user_id"], name: "index_problem_sets_on_user_id"
+  end
+
   create_table "problems", force: :cascade do |t|
     t.string "description"
     t.integer "points"
-    t.integer "complexity"
     t.string "choices", default: [], array: true
     t.string "answer"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "problem_set_id", null: false
+    t.index ["problem_set_id"], name: "index_problems_on_problem_set_id"
   end
 
   create_table "submissions", force: :cascade do |t|
@@ -89,6 +100,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_26_181555) do
   add_foreign_key "duel_participations", "users"
   add_foreign_key "duel_problems", "duels"
   add_foreign_key "duel_problems", "problems"
+  add_foreign_key "problem_sets", "users"
+  add_foreign_key "problems", "problem_sets"
   add_foreign_key "submissions", "duels"
   add_foreign_key "submissions", "problems"
   add_foreign_key "submissions", "users"
