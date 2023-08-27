@@ -16,10 +16,6 @@ class Duel < ApplicationRecord
 
   after_update_commit :broadcast_state_change, if: -> { finished? }
 
-  def complexity
-    problems.first&.complexity
-  end
-
   def initial_state
     DuelDetails.new(points: 0, submissions: 0, correct_answers: 0)
   end
