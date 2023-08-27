@@ -1,0 +1,17 @@
+<%= form_for @problem_set do |f| %>
+  <%= render 'shared/errors', resource: @problem_set %>
+
+  <div class="mb-3">
+    <%= f.label :name %>
+    <%= f.text_field :name, class: 'form-control', required: true %>
+  </div>
+
+  <div class="mb-3">
+    <%= f.label :complexity %>
+    <%= f.select :complexity, User.levels.keys, {}, class: 'form-select' %>
+  </div>
+
+  <div class="mb-3">
+    <%= f.submit "Save", class: 'btn btn-primary' %>
+  </div>
+<% end %>

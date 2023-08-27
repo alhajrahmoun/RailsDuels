@@ -17,6 +17,10 @@ Rails.application.routes.draw do
     get 'summary', on: :member, to: 'summaries#show'
   end
 
+  resources :problem_sets do
+    resources :problems, except: %i[index show]
+  end
+
   get 'profile', to: 'profiles#show', as: 'profile'
   get 'leaderboard', to: 'leaderboard#index', as: 'leaderboard'
   get 'leaderboard/:level', to: 'leaderboard#show', as: 'level_leaderboard'

@@ -20,6 +20,7 @@ class User < ApplicationRecord
   has_many :duels, through: :duel_participations
   has_many :submissions
   has_many :problems, through: :submissions
+  has_many :problem_sets
 
   after_update_commit :update_queue_status, if: :went_offline?
   after_update_commit :reset_points, if: :saved_change_to_level?
