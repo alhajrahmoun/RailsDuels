@@ -10,17 +10,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_08_27_133217) do
+ActiveRecord::Schema[7.0].define(version: 2023_08_27_235441) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "duel_participations", force: :cascade do |t|
+  create_table "duel_participants", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.bigint "duel_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["duel_id"], name: "index_duel_participations_on_duel_id"
-    t.index ["user_id"], name: "index_duel_participations_on_user_id"
+    t.index ["duel_id"], name: "index_duel_participants_on_duel_id"
+    t.index ["user_id", "duel_id"], name: "index_duel_participants_on_user_id_and_duel_id", unique: true
+    t.index ["user_id"], name: "index_duel_participants_on_user_id"
   end
 
   create_table "duel_problems", force: :cascade do |t|
@@ -39,6 +40,12 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_27_133217) do
     t.integer "winner_id"
     t.integer "winner_points"
     t.string "complexity"
+    t.string "type", default: "Duel"
+    t.boolean "private", default: true
+    t.string "invitation_code"
+    t.integer "leader_id"
+    t.bigint "problem_set_id"
+    t.index ["problem_set_id"], name: "index_duels_on_problem_set_id"
     t.index ["winner_id"], name: "index_duels_on_winner_id"
   end
 
@@ -97,10 +104,11 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_27_133217) do
     t.index ["username"], name: "index_users_on_username", unique: true
   end
 
-  add_foreign_key "duel_participations", "duels"
-  add_foreign_key "duel_participations", "users"
+  add_foreign_key "duel_participants", "duels"
+  add_foreign_key "duel_participants", "users"
   add_foreign_key "duel_problems", "duels"
   add_foreign_key "duel_problems", "problems"
+  add_foreign_key "duels", "problem_sets"
   add_foreign_key "problem_sets", "users"
   add_foreign_key "problems", "problem_sets"
   add_foreign_key "submissions", "duels"

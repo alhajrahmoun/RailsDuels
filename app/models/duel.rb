@@ -7,8 +7,8 @@ class Duel < ApplicationRecord
   has_many :problems, through: :duel_problems
   has_many :submissions
 
-  has_many :duel_participations
-  has_many :users, through: :duel_participations
+  has_many :duel_participants
+  has_many :users, through: :duel_participants
 
   belongs_to :winner, class_name: 'User', optional: true
 
@@ -37,5 +37,9 @@ class Duel < ApplicationRecord
 
   def broadcast_state_change
     Broadcasters::DuelStateBroadcaster.broadcast_to(self)
+  end
+
+  def custom?
+    false
   end
 end

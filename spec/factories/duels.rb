@@ -7,8 +7,8 @@ FactoryBot.define do
     state { :starting }
 
     after(:create) do |duel|
-      create_list(:duel_participation, 2, duel: duel) do |duel_participation|
-        duel_participation.update(user: create(:user))
+      create_list(:duel_participant, 2, duel: duel) do |duel_participant|
+        duel_participant.update(user: create(:user))
       end
     end
   end

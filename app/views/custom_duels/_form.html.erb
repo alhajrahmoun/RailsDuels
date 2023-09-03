@@ -1,0 +1,21 @@
+<%= form_for @duel do |f| %>
+  <%= render 'shared/errors', resource: @duel %>
+
+<!--  <div class="mb-3">-->
+<!--    <div class="form-check">-->
+      <%#= f.check_box :private, { class: 'form-check-input' }, true, false %>
+<!--      <label class="form-check-label" for="flexCheckDefault">-->
+<!--        Private?-->
+<!--      </label>-->
+<!--    </div>-->
+<!--  </div>-->
+
+  <div class="mb-3">
+    <%= f.label :problem_set %>
+    <%= f.collection_select :problem_set_id, current_user.problem_sets_with_problems, :id, :detailed_name, { include_blank: 'Select a problem set' }, { required: true, class: 'form-control' }  %>
+  </div>
+
+  <div class="mb-3">
+    <%= f.submit "Save", class: 'btn btn-primary' %>
+  </div>
+<% end %>

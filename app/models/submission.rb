@@ -9,10 +9,21 @@ class Submission < ApplicationRecord
   after_create_commit :update_duel_progress
 
   def set_points
-    self.points = choice == problem.answer ? problem.points : 0
+    extra_points = if duel.custom?
+                     problem.submissions.where(duel: duel).empty? ? 1 : 0
+                   else
+                     0
+                   end
+
+    self.points = choice == problem.answer ? problem.points + extra_points : 0
   end
 
   def update_duel_progress
-    Broadcasters::DuelProgressBroadcaster.broadcast_to(duel, user)
+    if duel.custom?
+      Broadcasters::CustomDuels::DuelPointsBroadcaster.broadcast_to(duel, user)
+      Broadcasters::CustomDuels::DuelProgressBroadcaster.broadcast_to(duel)
+    else
+      Broadcasters::DuelProgressBroadcaster.broadcast_to(duel, user)
+    end
   end
 end

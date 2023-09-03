@@ -11,6 +11,10 @@ module Broadcasters
           locals: locals
         )
       end
+
+      def dom_id(record)
+        "#{record.class.name.underscore}_#{record.id}"
+      end
     end
   end
 end

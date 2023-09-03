@@ -34,4 +34,8 @@ class ApplicationController < ActionController::Base
 
     redirect_back(fallback_location: root_path)
   end
+
+  def check_user_level
+    redirect_to edit_user_level_path if current_user.level.nil?
+  end
 end

@@ -1,0 +1,8 @@
+<%= tag.div id: "#{dom_id(duel)}_progress" do %>
+  <div class="container mt-5">
+    <div  class="card">
+      <%= render 'duel_points', duel: duel, user: user %>
+      <%= render 'participants_progress', duel: duel %>
+    </div>
+  </div>
+<% end %>

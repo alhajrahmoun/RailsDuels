@@ -24,13 +24,28 @@
           </a>
 
           <nav class="d-inline-flex mt-2 mt-md-0 ms-md-auto">
-            <%= link_to 'Home', root_path, class: 'me-3 py-2 link-body-emphasis text-decoration-none' %>
             <%= link_to 'Leaderboard', leaderboard_path, class: 'me-3 py-2 link-body-emphasis text-decoration-none' %>
 
             <% if user_signed_in? %>
-              <%= link_to 'Profile', profile_path, class: 'me-3 py-2 link-body-emphasis text-decoration-none' %>
-              <%= link_to 'Sign out', destroy_user_session_path, class: 'me-3 py-2 link-body-emphasis text-decoration-none', data: { turbo_method: :delete } %>
-              <span class="py-2">(Logged in as <b><%= user_details(current_user) %></b>)</span>
+              <div class="me-3 py-2 link-body-emphasis text-decoration-none">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  Duel modes
+                </a>
+                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                  <li><%= link_to 'Quick Duels', root_path, class: 'dropdown-item' %></li>
+                  <li><%= link_to 'Custom Duels', custom_duels_path, class: 'dropdown-item' %></li>
+                </ul>
+              </div>
+
+              <div class="me-3 py-2 link-body-emphasis text-decoration-none">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  <b><%= user_details(current_user) %></b>
+                </a>
+                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                  <li><%= link_to 'Profile', profile_path, class: 'dropdown-item' %></li>
+                  <li><%= link_to 'Sign out', destroy_user_session_path, class: 'dropdown-item', data: { turbo_method: :delete } %></li>
+                </ul>
+              </div>
             <% else %>
               <%= link_to 'Sign in', user_session_path, class: 'me-3 py-2 link-body-emphasis text-decoration-none' %>
               <%= link_to 'Sign up', new_user_registration_path, class: 'py-2 link-body-emphasis text-decoration-none' %>

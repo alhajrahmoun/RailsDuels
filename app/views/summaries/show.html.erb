@@ -5,7 +5,11 @@
     <div class="col">
       <%= tag.div id: "#{dom_id(@duel)}_summary" do %>
         <% if @duel.finished? %>
-          <%= render 'summary', duel: @duel %>
+          <% if @duel.custom? %>
+            <%= render 'ranking', participants_ranking: @participants_ranking %>
+          <% else %>
+            <%= render 'summary', duel: @duel %>
+          <% end %>
         <% else %>
           <%= render 'waiting_for_opponent' %>
         <% end %>

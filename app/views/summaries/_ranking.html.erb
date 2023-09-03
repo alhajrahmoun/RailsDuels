@@ -1,0 +1,5 @@
+<ol>
+  <% participants_ranking.each do |participant_ranking| %>
+    <li><%= participant_ranking.username %> | <%= participant_ranking.rank %> | <%= participant_ranking.points %></li>
+  <% end %>
+</ol>

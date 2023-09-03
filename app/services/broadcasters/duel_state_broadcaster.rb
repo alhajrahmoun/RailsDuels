@@ -4,8 +4,8 @@ module Broadcasters
   class DuelStateBroadcaster < BaseBroadcaster
     def self.broadcast_to(duel)
       Turbo::StreamsChannel.broadcast_update_to(
-        "duel_#{duel.id}_summary",
-        target: "duel_#{duel.id}_summary",
+        "#{dom_id(duel)}_summary",
+        target: "#{dom_id(duel)}_summary",
         content: render_template('summaries/summary', { duel: duel })
       )
     end

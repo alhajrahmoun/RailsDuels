@@ -4,6 +4,12 @@ class SummariesController < ApplicationController
   def show
     @duel = Duel.find(params[:id])
 
-    DuelFinalizerService.new(@duel).call
+    if @duel.custom?
+      @participants_ranking = CustomDuelRanksQuery.call(@duel)
+
+      CustomDuelFinalizerService.new(@duel).call
+    else
+      DuelFinalizerService.new(@duel).call
+    end
   end
 end

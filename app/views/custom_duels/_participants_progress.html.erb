@@ -1,0 +1,17 @@
+<div id="custom-duel-<%= duel.id %>-participants-progress">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="rating-progress-bars p-3">
+        <div class="progress-1 align-items-center">
+          <% duel.users.each do |user| %>
+            <%= user.username %>
+            <%= custom_duel_progress(problems_count: duel.problems.size,
+                                     correct_answers: duel.user_state(user).correct_answers,
+                                     points: duel.user_state(user).points,
+                                     answered_questions: duel.user_state(user).submissions) %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
