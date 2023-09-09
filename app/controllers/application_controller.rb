@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 class ApplicationController < ActionController::Base
+  after_action :track_action
   before_action :authenticate_user!, unless: -> { static_page? || leaderboard_page? }
   before_action :configure_permitted_parameters, if: :devise_controller?
   include Pundit::Authorization
@@ -20,6 +21,10 @@ class ApplicationController < ActionController::Base
 
   def leaderboard_page?
     is_a?(LeaderboardController)
+  end
+
+  def track_action
+    ahoy.track 'Ran action', request.path_parameters
   end
 
   private

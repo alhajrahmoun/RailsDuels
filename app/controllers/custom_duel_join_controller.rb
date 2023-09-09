@@ -7,7 +7,7 @@ class CustomDuelJoinController < ApplicationController
   def show
     @duel = CustomDuel.find_by(id: params[:id], invitation_code: params[:code])
 
-    return redirect_to root_path, alert: 'Duel not found' if @duel.nil?
+    return redirect_to root_path, alert: I18n.t('errors.messages.duel_not_found') if @duel.nil?
 
     @duel.duel_participants.create(user: current_user)
 

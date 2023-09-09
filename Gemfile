@@ -49,6 +49,13 @@ gem 'bootsnap', require: false
 
 gem 'devise'
 gem 'newrelic_rpm'
+
+gem 'pundit', '~> 2.3'
+
+gem 'ahoy_matey'
+gem 'pagy', '~> 6.0'
+
+gem 'ahoy_captain', '~> 1.0'
 # Use Sass to process CSS
 # gem "sassc-rails"
 
@@ -87,7 +94,3 @@ group :test do
   gem 'simplecov', require: false
   gem 'simplecov-json', require: false
 end
-
-gem 'pundit', '~> 2.3'
-
-gem "pagy", "~> 6.0"
