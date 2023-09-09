@@ -92,3 +92,5 @@ gem 'pundit', '~> 2.3'
 
 gem "pagy", "~> 6.0"
 gem "ahoy_matey"
+
+gem "ahoy_captain", "~> 1.0"
