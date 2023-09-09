@@ -5,15 +5,15 @@ class CustomDuelsController < ApplicationController
   before_action :check_user_level, only: %i[show new]
 
   def index
-    @duels = CustomDuel.all.includes(:users)
+    @duels = CustomDuel.starting.includes(:users)
   end
 
   def show
     @duel = CustomDuel.find_by(id: params[:id])
 
-    @participant = @duel.duel_participants.find_by(user: current_user)
+    return redirect_to root_path, alert: 'Duel not found' if @duel.nil?
 
-    redirect_to root_path, alert: 'Duel not found' if @duel.nil?
+    @participant = @duel.duel_participants.find_by(user: current_user)
   end
 
   def new

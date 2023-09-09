@@ -4,6 +4,13 @@
       <h3>Create a custom duel</h3>
     </div>
 
-    <%= render 'form' %>
+    <% if current_user.problem_sets_with_problems.empty? %>
+      <div class="alert alert-danger" role="alert">
+        <span>In order to create a custom duel, you need to create a problem set with at least one problem.</span>
+      </div>
+      <%= link_to 'To my problem sets', problem_sets_path, class: 'btn btn-primary' %>
+    <% else %>
+      <%= render 'form' %>
+    <% end %>
   </div>
 </div>

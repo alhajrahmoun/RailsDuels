@@ -4,7 +4,7 @@
   <thead>
   <tr>
     <th>ID</th>
-    <th>Visibility</th>
+    <th>Type</th>
     <th>Created at</th>
     <th>Participants</th>
     <th>Actions</th>
@@ -13,8 +13,8 @@
   <% @duels.each do |duel| %>
     <tr>
       <td><%= duel.id %></td>
-      <td><%= duel.private? ? 'Private' : 'Public' %></td>
-      <td><%= duel.created_at %></td>
+      <td><%= duel.private? ? 'Invitation-only' : 'Public' %></td>
+      <td><%= date_format(duel.created_at) %></td>
       <td><%= duel.users.size %></td>
       <td><%= link_to "Details", custom_duel_path(duel), class: 'btn btn-primary' %></td>
     </tr>

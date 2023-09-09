@@ -4,7 +4,7 @@
       <div class="rating-progress-bars p-3">
         <div class="progress-1 align-items-center">
           <% duel.users.each do |user| %>
-            <%= user.username %>
+            <span><%= user.username %></span>
             <%= custom_duel_progress(problems_count: duel.problems.size,
                                      correct_answers: duel.user_state(user).correct_answers,
                                      points: duel.user_state(user).points,

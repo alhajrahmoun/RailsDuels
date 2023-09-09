@@ -12,7 +12,7 @@ module Broadcasters
 
         Turbo::StreamsChannel.broadcast_remove_to(
           "custom_duel_#{duel.id}",
-          target: 'duel-leave-button'
+          target: 'duel-actions'
         )
       end
     end

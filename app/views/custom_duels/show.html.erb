@@ -1,27 +1,7 @@
 <%= turbo_stream_from "custom_duel_#{@duel.id}" %>
 
 <% if @duel.starting? %>
-  <h3>Custom Duel #<%= @duel.id %></h3>
-
-  <% if @participant %>
-    <%= button_to "leave", custom_duel_participant_path(@duel, @participant.id), method: :delete, class: 'btn btn-danger', id: 'duel-leave-button' %>
-  <% end %>
-
-  <% if current_user == @duel.leader %>
-    <%= button_to "start", start_custom_duel_path(@duel), method: :patch, class: 'btn btn-success' %>
-    <%= join_custom_duel_url(@duel, code: @duel.invitation_code) %>
-  <% end %>
-
-  <div class="row">
-    <div class="offset-4 col-4">
-      <h5>Participants:</h5>
-
-      <div id="starting_countdown"></div>
-      <div id="custom-duel-<%= @duel.id %>-participants">
-        <%= render 'participants', duel: @duel %>
-      </div>
-    </div>
-  </div>
+  <%= render 'custom_duels/starting', duel: @duel %>
 <% else %>
   <div class="row">
     <div class="col-4">

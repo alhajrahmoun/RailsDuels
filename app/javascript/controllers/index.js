@@ -7,6 +7,9 @@ import { application } from "./application"
 import ArrayInputController from "./array_input_controller"
 application.register("array-input", ArrayInputController)
 
+import ClipboardController from "./clipboard_controller"
+application.register("clipboard", ClipboardController)
+
 import OnlineStatusController from "./online_status_controller"
 application.register("online-status", OnlineStatusController)
 
