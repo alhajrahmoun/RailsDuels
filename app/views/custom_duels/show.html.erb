@@ -3,13 +3,19 @@
 <% if @duel.starting? %>
   <%= render 'custom_duels/starting', duel: @duel %>
 <% else %>
-  <div class="row">
-    <div class="col-4">
-      <%= render 'custom_duels/duel_progress', duel: @duel, user: current_user %>
-    </div>
+  <% if @duel.start_at > Time.zone.now %>
+    <%= render 'custom_duels/match_starting',
+              duel_id: @duel.id,
+              duration: @duel.time_to_start %>
+  <% else %>
+    <div class="row">
+      <div class="col-4">
+        <%= render 'custom_duels/duel_progress', duel: @duel, user: current_user %>
+      </div>
 
-    <div class="col-8">
-      <%= render 'custom_duels/duel', duel: @duel %>
+      <div class="col-8">
+        <%= render 'custom_duels/duel', duel: @duel %>
+      </div>
     </div>
-  </div>
+  <% end %>
 <% end %>

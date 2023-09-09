@@ -32,4 +32,8 @@ class CustomDuel < Duel
   def custom?
     true
   end
+
+  def time_to_start
+    (start_at - Time.zone.now).ceil
+  end
 end
