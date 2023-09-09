@@ -32,6 +32,7 @@
 en:
   hints:
     settings_change: 'Changing your difficulty level will reset your progress.'
+    user_left_duel: 'You have left the duel.'
   actions:
     success: "Action completed successfully"
     failure: "Action failed"
@@ -39,4 +40,5 @@ en:
     messages:
       record_not_found: "Record not found"
       unauthorized: "You are not authorized to perform this action"
-
+      duel_not_found: 'Duel not found'
+      not_enough_participants: 'You need at least 2 participants to start a duel'

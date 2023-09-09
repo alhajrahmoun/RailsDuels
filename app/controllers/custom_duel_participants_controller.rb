@@ -21,7 +21,7 @@ class CustomDuelParticipantsController < ApplicationController
 
     @duel.destroy if @duel.duel_participants.empty?
 
-    redirect_to custom_duels_path, notice: 'You have left the duel'
+    redirect_to custom_duels_path, notice: I18n.t('hints.user_left_duel')
   end
 
   private
