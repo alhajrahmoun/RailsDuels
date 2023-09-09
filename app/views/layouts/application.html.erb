@@ -33,7 +33,11 @@
                 </a>
                 <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                   <li><%= link_to 'Quick Duels', root_path, class: 'dropdown-item' %></li>
-                  <li><%= link_to 'Custom Duels', custom_duels_path, class: 'dropdown-item' %></li>
+                  <li><%= link_to custom_duels_path, class: 'dropdown-item' do %>
+                    Custom Duels
+                      <span class="badge bg-info text-dark p-2 ml-1">BETA</span>
+                  <% end %>
+                  </li>
                 </ul>
               </div>
 

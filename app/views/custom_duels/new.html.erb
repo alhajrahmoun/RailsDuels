@@ -6,7 +6,7 @@
 
     <% if current_user.problem_sets_with_problems.empty? %>
       <div class="alert alert-danger" role="alert">
-        <span>In order to create a custom duel, you need to create a problem set with at least one problem.</span>
+        <span>To set up a custom duel, ensure you have a problem set that contains a minimum of one problem.</span>
       </div>
       <%= link_to 'To my problem sets', problem_sets_path, class: 'btn btn-primary' %>
     <% else %>

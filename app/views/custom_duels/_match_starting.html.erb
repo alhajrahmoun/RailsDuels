@@ -1,11 +1,13 @@
-<div class="d-flex justify-content-center mt-2 mb-2">
-  <div class="spinner-border" role="status">
-    <span class="visually-hidden">Loading...</span>
+<div class="alert alert-info" role="alert">
+  <div class="d-flex justify-content-center mt-1 mb-2">
+    <div class="spinner-border" role="status">
+      <span class="visually-hidden">Loading...</span>
+    </div>
   </div>
-</div>
 
-<div class="d-flex justify-content-center">
-  <div data-controller="timer" data-timer-url-value="<%= custom_duel_path(duel_id) %>">
-    <h5>Starting in ... <span data-timer-target="timer"></span></h5>
+  <div class="d-flex justify-content-center">
+    <div data-controller="timer" data-timer-url-value="<%= custom_duel_path(duel_id) %>">
+      <h5>Starting in ... <span data-timer-target="timer"></span></h5>
+    </div>
   </div>
 </div>
