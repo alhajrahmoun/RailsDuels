@@ -10,7 +10,7 @@ class CreateDuelParticipants < ActiveRecord::Migration[7.0]
     add_index :duel_participants, %i[user_id duel_id], unique: true
 
     Duel.all.find_each do |duel|
-      duel.duel_participants.create!(user: [duel.user_1, duel.user_2])
+      duel.users << [duel.user_1, duel.user_2]
     end
   end
 end

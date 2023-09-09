@@ -10,6 +10,9 @@ class Duel < ApplicationRecord
   has_many :duel_participants
   has_many :users, through: :duel_participants
 
+  belongs_to :user_1, class_name: 'User', counter_cache: 'duels_count', optional: true
+  belongs_to :user_2, class_name: 'User', counter_cache: 'duels_count', optional: true
+
   belongs_to :winner, class_name: 'User', optional: true
 
   enum state: { starting: 0, ongoing: 1, finished: 2 }
