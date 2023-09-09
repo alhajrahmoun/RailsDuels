@@ -1,0 +1,7 @@
+<div class="container mt-5">
+  <div class="row row-cols-1 mb-3 mt-3">
+    <%= tag.div id: 'duel' do %>
+      <%= turbo_frame_tag dom_id(duel), src: duel_problems_path(duel_id: duel.id), target: :_top %>
+    <% end %>
+  </div>
+</div>

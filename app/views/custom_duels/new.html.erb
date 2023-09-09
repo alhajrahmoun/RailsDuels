@@ -1,0 +1,16 @@
+<div class="row row-cols-2 mb-3">
+  <div class="offset-3">
+    <div class="mb-3">
+      <h3>Create a custom duel</h3>
+    </div>
+
+    <% if current_user.problem_sets_with_problems.empty? %>
+      <div class="alert alert-danger" role="alert">
+        <span>To set up a custom duel, ensure you have a problem set that contains a minimum of one problem.</span>
+      </div>
+      <%= link_to 'To my problem sets', problem_sets_path, class: 'btn btn-primary' %>
+    <% else %>
+      <%= render 'form' %>
+    <% end %>
+  </div>
+</div>

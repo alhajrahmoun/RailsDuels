@@ -5,5 +5,21 @@ class Problem < ApplicationRecord
   has_many :duel_problems
   has_many :duels, through: :duel_problems
 
-  enum complexity: { beginner: 0, intermediate: 1, advanced: 2, expert: 3 }
+  belongs_to :problem_set
+
+  validates :description, :points, :answer, presence: true
+  validate :answer_matches_choice
+  validate :choices_count
+
+  def answer_matches_choice
+    return if choices.include?(answer)
+
+    errors.add(:answer, 'must be one of the choices')
+  end
+
+  def choices_count
+    return if choices.count <= 4 && choices.count >= 2
+
+    errors.add(:choices, 'must be at least two')
+  end
 end

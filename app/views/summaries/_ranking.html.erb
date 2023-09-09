@@ -1,0 +1,14 @@
+<div class="offset-1 col-8">
+  <h5 class="text-start">Participants ranking:</h5>
+
+  <br>
+
+  <div class="list-group">
+    <% participants_ranking.each do |participant_ranking| %>
+      <li class="list-group-item d-flex justify-content-between align-items-center">
+        <%= participant_ranking.rank %>. <%= participant_ranking.username %>
+        <span class="badge bg-primary rounded-pill"><%= participant_ranking.points %></span>
+      </li>
+    <% end %>
+  </div>
+</div>

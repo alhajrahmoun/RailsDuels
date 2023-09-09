@@ -10,9 +10,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_08_13_160859) do
+ActiveRecord::Schema[7.0].define(version: 2023_09_09_140813) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "duel_participants", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "duel_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["duel_id"], name: "index_duel_participants_on_duel_id"
+    t.index ["user_id", "duel_id"], name: "index_duel_participants_on_user_id_and_duel_id", unique: true
+    t.index ["user_id"], name: "index_duel_participants_on_user_id"
+  end
 
   create_table "duel_problems", force: :cascade do |t|
     t.bigint "duel_id", null: false
@@ -25,25 +35,40 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_13_160859) do
 
   create_table "duels", force: :cascade do |t|
     t.integer "state", default: 0
-    t.bigint "user_1_id", null: false
-    t.bigint "user_2_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "winner_id"
     t.integer "winner_points"
-    t.index ["user_1_id"], name: "index_duels_on_user_1_id"
-    t.index ["user_2_id"], name: "index_duels_on_user_2_id"
+    t.string "complexity"
+    t.string "type", default: "Duel"
+    t.boolean "private", default: true
+    t.string "invitation_code"
+    t.integer "leader_id"
+    t.bigint "problem_set_id"
+    t.datetime "start_at"
+    t.index ["problem_set_id"], name: "index_duels_on_problem_set_id"
     t.index ["winner_id"], name: "index_duels_on_winner_id"
+  end
+
+  create_table "problem_sets", force: :cascade do |t|
+    t.string "name"
+    t.integer "complexity"
+    t.bigint "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["complexity"], name: "index_problem_sets_on_complexity"
+    t.index ["user_id"], name: "index_problem_sets_on_user_id"
   end
 
   create_table "problems", force: :cascade do |t|
     t.string "description"
     t.integer "points"
-    t.integer "complexity"
     t.string "choices", default: [], array: true
     t.string "answer"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "problem_set_id", null: false
+    t.index ["problem_set_id"], name: "index_problems_on_problem_set_id"
   end
 
   create_table "submissions", force: :cascade do |t|
@@ -72,7 +97,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_13_160859) do
     t.integer "status", default: 0
     t.integer "points", default: 0
     t.boolean "online", default: false
-    t.integer "duels_count", default: 0
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["level"], name: "index_users_on_level"
     t.index ["points"], name: "index_users_on_points", order: :desc
@@ -81,10 +105,13 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_13_160859) do
     t.index ["username"], name: "index_users_on_username", unique: true
   end
 
+  add_foreign_key "duel_participants", "duels"
+  add_foreign_key "duel_participants", "users"
   add_foreign_key "duel_problems", "duels"
   add_foreign_key "duel_problems", "problems"
-  add_foreign_key "duels", "users", column: "user_1_id"
-  add_foreign_key "duels", "users", column: "user_2_id"
+  add_foreign_key "duels", "problem_sets"
+  add_foreign_key "problem_sets", "users"
+  add_foreign_key "problems", "problem_sets"
   add_foreign_key "submissions", "duels"
   add_foreign_key "submissions", "problems"
   add_foreign_key "submissions", "users"

@@ -9,6 +9,6 @@ class DuelPolicy
   end
 
   def show?
-    duel.user_1_id == user.id || duel.user_2_id == user.id
+    duel.user_ids.include?(user.id)
   end
 end

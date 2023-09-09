@@ -1,0 +1,29 @@
+<div data-controller="array-input">
+  <%= form_for [@problem_set, @problem] do |f| %>
+    <%= render 'shared/errors', resource: @problem %>
+
+    <div class="mb-3">
+      <%= f.label :description %>
+      <%= f.text_area :description, class: 'form-control', required: true %>
+    </div>
+
+    <div class="mb-3">
+      <%= f.label :points %>
+      <%= f.number_field :points, min: 1, max: 50, class: 'form-control', required: true %>
+    </div>
+
+    <div class="mb-3">
+      <%= f.label :choices %>
+      <%= f.text_field :choices, value: f.object.choices.join(';'), id: 'problem-choices', required: true %>
+    </div>
+
+    <div class="mb-3">
+      <%= f.label :answer %>
+      <%= f.text_field :answer, class: 'form-control', required: true %>
+    </div>
+
+    <div class="mb-3">
+      <%= f.submit "Save", class: 'btn btn-primary' %>
+    </div>
+  <% end %>
+</div>

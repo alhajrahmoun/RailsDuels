@@ -38,3 +38,4 @@
 
 coverage/*
 !/coverage/.keep
+mydb_backup.dump

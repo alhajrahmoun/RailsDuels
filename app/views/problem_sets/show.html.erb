@@ -1,0 +1,30 @@
+<h3><%= @problem_set.name %> |
+  <%= @problem_set.complexity %> |
+  <%= link_to 'Create new problem', new_problem_set_problem_path(@problem_set), class: 'btn btn-primary' %>
+</h3>
+
+<table class="table table-borderless">
+  <thead>
+  <tr>
+    <th>ID</th>
+    <th>description</th>
+    <th>Points</th>
+    <th>Choices</th>
+    <th>Answer</th>
+    <th>Actions</th>
+  </tr>
+  </thead>
+  <% @problem_set.problems.each do |problem| %>
+    <tr>
+      <td><%= problem.id %></td>
+      <td><%= problem.description %></td>
+      <td><%= problem.points %></td>
+      <td><%= problem.choices %></td>
+      <td><%= problem.answer %></td>
+      <td>
+        <%= link_to 'Edit', edit_problem_set_problem_path(@problem_set, problem), class: 'btn btn-primary' %>
+        <%= link_to 'Delete', problem_set_problem_path(@problem_set, problem), data: { turbo_method: :delete }, class: 'btn btn-danger' %>
+      </td>
+    </tr>
+  <% end %>
+</table>

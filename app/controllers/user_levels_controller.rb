@@ -7,7 +7,7 @@ class UserLevelsController < ApplicationController
     if current_user.update(user_level_params)
       flash[:notice] = I18n.t('actions.success')
 
-      redirect_to profile_path
+      redirect_to settings_path
     else
       flash[:alert] = I18n.t('actions.failure')
 

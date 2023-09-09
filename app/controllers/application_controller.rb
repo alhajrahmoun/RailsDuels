@@ -4,6 +4,7 @@ class ApplicationController < ActionController::Base
   before_action :authenticate_user!, unless: -> { static_page? || leaderboard_page? }
   before_action :configure_permitted_parameters, if: :devise_controller?
   include Pundit::Authorization
+  include Pagy::Backend
   rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
   rescue_from ActiveRecord::RecordNotFound, with: :record_not_found
 
@@ -33,5 +34,9 @@ class ApplicationController < ActionController::Base
     flash[:alert] = I18n.t('errors.messages.record_not_found')
 
     redirect_back(fallback_location: root_path)
+  end
+
+  def check_user_level
+    redirect_to edit_user_level_path if current_user.level.nil?
   end
 end

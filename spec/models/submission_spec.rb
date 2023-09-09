@@ -4,7 +4,7 @@ require 'rails_helper'
 
 RSpec.describe Submission do
   describe '#set_points' do
-    let(:problem) { create(:problem, answer: 'B', points: 5) }
+    let(:problem) { create(:problem, choices: %w[A B C], answer: 'B', points: 5) }
 
     it 'successfully sets points to problem points if answer is correct' do
       submission = build(:submission, choice: 'B', problem: problem)

@@ -1,0 +1,22 @@
+<%= link_to 'create a custm duel', new_custom_duel_path, class: 'btn btn-primary mb-3' %>
+
+<table class="table table-borderless">
+  <thead>
+  <tr>
+    <th>ID</th>
+    <th>Type</th>
+    <th>Created at</th>
+    <th>Participants</th>
+    <th>Actions</th>
+  </tr>
+  </thead>
+  <% @duels.each do |duel| %>
+    <tr>
+      <td><%= duel.id %></td>
+      <td><%= duel.private? ? 'Invitation-only' : 'Public' %></td>
+      <td><%= date_format(duel.created_at) %></td>
+      <td><%= duel.users.size %></td>
+      <td><%= link_to "Details", custom_duel_path(duel), class: 'btn btn-primary' %></td>
+    </tr>
+  <% end %>
+</table>

@@ -4,11 +4,17 @@
 
 import { application } from "./application"
 
-import TimerController from "./timer_controller"
-application.register("timer", TimerController)
+import ArrayInputController from "./array_input_controller"
+application.register("array-input", ArrayInputController)
+
+import ClipboardController from "./clipboard_controller"
+application.register("clipboard", ClipboardController)
+
+import OnlineStatusController from "./online_status_controller"
+application.register("online-status", OnlineStatusController)
 
 import QueueTimerController from "./queue_timer_controller"
 application.register("queue-timer", QueueTimerController)
 
-import OnlineStatusController from "./online_status_controller"
-application.register("online-status", OnlineStatusController)
+import TimerController from "./timer_controller"
+application.register("timer", TimerController)

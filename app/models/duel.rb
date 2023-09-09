@@ -7,17 +7,17 @@ class Duel < ApplicationRecord
   has_many :problems, through: :duel_problems
   has_many :submissions
 
-  belongs_to :user_1, class_name: 'User', counter_cache: 'duels_count'
-  belongs_to :user_2, class_name: 'User', counter_cache: 'duels_count'
+  has_many :duel_participants
+  has_many :users, through: :duel_participants
+
+  belongs_to :user_1, class_name: 'User', counter_cache: 'duels_count', optional: true
+  belongs_to :user_2, class_name: 'User', counter_cache: 'duels_count', optional: true
+
   belongs_to :winner, class_name: 'User', optional: true
 
   enum state: { starting: 0, ongoing: 1, finished: 2 }
 
   after_update_commit :broadcast_state_change, if: -> { finished? }
-
-  def complexity
-    problems.first&.complexity
-  end
 
   def initial_state
     DuelDetails.new(points: 0, submissions: 0, correct_answers: 0)
@@ -39,10 +39,10 @@ class Duel < ApplicationRecord
   end
 
   def broadcast_state_change
-    Turbo::StreamsChannel.broadcast_update_to(
-      "duel_#{id}_summary",
-      target: "duel_#{id}_summary",
-      content: ApplicationController.render(partial: 'summaries/summary', locals: { duel: self })
-    )
+    Broadcasters::DuelStateBroadcaster.broadcast_to(self)
+  end
+
+  def custom?
+    false
   end
 end

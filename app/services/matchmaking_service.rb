@@ -8,7 +8,7 @@ class MatchmakingService
     @opponent = MatchmakingQuery.call(current_user)
 
     if @opponent.present?
-      service = DuelsService.call(user_1: @current_user, user_2: @opponent)
+      service = DuelsService.call(participants: [@current_user, @opponent])
 
       if service
         @duel = service
@@ -28,46 +28,11 @@ class MatchmakingService
     private
 
     def match_found
-      Turbo::StreamsChannel.broadcast_replace_to(
-        queue_channel(current_user),
-        target: 'match',
-        content: render_template('match_found', opponent: opponent, duel_id: duel.id)
-      )
-
-      Turbo::StreamsChannel.broadcast_remove_to(
-        queue_channel(current_user),
-        target: 'cancellation-section'
-      )
-
-      Turbo::StreamsChannel.broadcast_replace_to(
-        queue_channel(opponent),
-        target: 'match',
-        content: render_template('match_found', opponent: current_user, duel_id: duel.id)
-      )
-
-      Turbo::StreamsChannel.broadcast_remove_to(
-        queue_channel(opponent),
-        target: 'cancellation-section'
-      )
+      Broadcasters::MatchFoundBroadcaster.broadcast_to(duel, current_user, opponent)
     end
 
     def no_match_found
-      Turbo::StreamsChannel.broadcast_replace_to(
-        queue_channel(current_user),
-        target: 'match',
-        content: render_template('no_match_found')
-      )
-    end
-
-    def render_template(template, locals = {})
-      ApplicationController.render(
-        partial: "matchmaking/#{template}",
-        locals: locals
-      )
-    end
-
-    def queue_channel(user)
-      "queue_#{user.level}_#{user.id}"
+      Broadcasters::NoMatchBroadcaster.broadcast_to(current_user)
     end
   end
 end

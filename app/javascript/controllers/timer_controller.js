@@ -3,14 +3,15 @@ import Timer from "easytimer.js";
 
 export default class extends Controller {
   static targets = ['timer']
-  static values = { url: String }
+  static values = { url: String, duration: Number }
 
   connect() {
+    console.log(this.durationValue)
     const timer = new Timer();
     timer.start({
       countdown: true,
       precision: 'seconds',
-      startValues: { seconds: 10 },
+      startValues: { seconds: this.durationValue  || 10 },
       callback: (e) => {
         this.timerTarget.innerText = timer.getTimeValues().toString();
       }
