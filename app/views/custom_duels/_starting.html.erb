@@ -5,7 +5,7 @@
     <h3>Custom Duel #<%= duel.id %></h3>
 
     <ul>
-      <li>Complexity: <%= duel.problem_set.complexity.capitalize %></li>
+      <li>Complexity: <%= duel.complexity.capitalize %></li>
       <li>Problems: <%= duel.problem_set.problems.count %></li>
       <li>Total points: <%= duel.problem_set.problems.sum(:points) %></li>
     </ul>
