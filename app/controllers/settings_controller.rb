@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class ProfilesController < ApplicationController
+class SettingsController < ApplicationController
   before_action :authenticate_user!
 
   def show; end
@@ -9,7 +9,7 @@ class ProfilesController < ApplicationController
     if current_user.update(user_params)
       flash[:notice] = I18n.t('actions.success')
 
-      redirect_to profile_path
+      redirect_to settings_path
     else
       flash[:alert] = I18n.t('actions.failure')
 

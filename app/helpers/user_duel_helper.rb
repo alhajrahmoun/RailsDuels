@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module ProfileHelper
+module UserDuelHelper
   def duels_table_row_color(duel)
     if duel.winner == current_user
       'table-success'

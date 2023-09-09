@@ -25,10 +25,11 @@ Rails.application.routes.draw do
     resources :participants, only: %i[create destroy], controller: 'custom_duel_participants'
   end
 
+  get 'history', to: 'user_duels#index', as: 'history'
   get 'join/:id', to: 'custom_duel_join#show', as: 'join_custom_duel'
   patch 'start/:id', to: 'custom_duel_start#update', as: 'start_custom_duel'
 
-  get 'profile', to: 'profiles#show', as: 'profile'
+  get 'settings', to: 'settings#show', as: 'settings'
   get 'leaderboard', to: 'leaderboard#index', as: 'leaderboard'
   get 'leaderboard/:level', to: 'leaderboard#show', as: 'level_leaderboard'
   get 'static_pages/index'

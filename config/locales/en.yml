@@ -31,7 +31,7 @@
 
 en:
   hints:
-    profile_change: 'Changing your difficulty level will reset your progress.'
+    settings_change: 'Changing your difficulty level will reset your progress.'
   actions:
     success: "Action completed successfully"
     failure: "Action failed"

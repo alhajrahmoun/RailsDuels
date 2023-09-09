@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 module ApplicationHelper
+  include Pagy::Frontend
+
   def user_details(user)
     "#{user.username}#{user.level ? " - #{user.level}" : ''}"
   end

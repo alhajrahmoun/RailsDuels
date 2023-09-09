@@ -16,7 +16,8 @@ class User < ApplicationRecord
   scope :online, -> { where(online: true) }
 
   has_many :duel_participants
-  has_many :duels, through: :duel_participants
+  has_many :duels, -> { where(type: 'Duel') }, through: :duel_participants
+  has_many :custom_duels, -> { where(type: 'Duel') }, through: :duel_participants, class_name: 'CustomDuel'
   has_many :submissions
   has_many :problems, through: :submissions
   has_many :problem_sets
