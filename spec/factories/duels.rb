@@ -11,5 +11,11 @@ FactoryBot.define do
         duel_participant.update(user: create(:user))
       end
     end
+
+    trait :custom_duel do
+      type { 'CustomDuel' }
+    end
+
+    factory :custom_duel, traits: [:custom_duel], class: 'CustomDuel'
   end
 end
