@@ -8,6 +8,7 @@ class CustomDuelJoinController < ApplicationController
     @duel = CustomDuel.find_by(id: params[:id], invitation_code: params[:code])
 
     return redirect_to root_path, alert: I18n.t('errors.messages.duel_not_found') if @duel.nil?
+    return redirect_to root_path, alert: I18n.t('errors.messages.duel_not_joinable') unless @duel.starting?
 
     @duel.duel_participants.create(user: current_user)
 
