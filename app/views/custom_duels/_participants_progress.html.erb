@@ -5,7 +5,7 @@
         <div class="progress-1 align-items-center">
           <% problems_count = duel.problems.size %>
           <% duel.users.each do |user| %>
-            
+
             <span><%= user.username %></span>
             <% user_state = duel.user_state(user) %>
             <%= custom_duel_progress(problems_count: problems_count,

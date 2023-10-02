@@ -2,6 +2,6 @@
 
 class UserDuelsController < ApplicationController
   def index
-    @pagy, @user_duels = pagy(current_user.duels)
+    @pagy, @user_duels = pagy(current_user.duels.includes(:winner))
   end
 end
