@@ -47,6 +47,6 @@ class CustomDuelsController < ApplicationController
   private
 
   def duel_params
-    params.require(:custom_duel).permit(:private, :problem_set_id)
+    params.require(:custom_duel).permit(:private, :problem_set_id, :extra_points)
   end
 end

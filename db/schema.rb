@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_09_09_213753) do
+ActiveRecord::Schema[7.0].define(version: 2023_10_02_035144) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -88,6 +88,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_09_213753) do
     t.integer "leader_id"
     t.bigint "problem_set_id"
     t.datetime "start_at"
+    t.integer "extra_points", default: 1
     t.index ["problem_set_id"], name: "index_duels_on_problem_set_id"
     t.index ["winner_id"], name: "index_duels_on_winner_id"
   end

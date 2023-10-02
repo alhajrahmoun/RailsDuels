@@ -10,7 +10,7 @@ class Submission < ApplicationRecord
 
   def set_points
     extra_points = if duel.custom?
-                     problem.submissions.where(duel: duel).empty? ? 1 : 0
+                     problem.submissions.where(duel: duel).empty? ? duel.extra_points : 0
                    else
                      0
                    end

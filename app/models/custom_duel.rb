@@ -6,6 +6,8 @@ class CustomDuel < Duel
   belongs_to :problem_set, optional: true
   belongs_to :leader, class_name: 'User', optional: true
 
+  validates :extra_points, numericality: { less_than_or_equal_to: 5, greater_than_or_equal_to: 0 }
+
   before_create :set_invitation_code
   after_update_commit :broadcast_match_starting, if: -> { state_previously_changed?(to: 'ongoing') }
   after_update_commit :assign_problems, if: -> { ongoing? && problems.empty? }
