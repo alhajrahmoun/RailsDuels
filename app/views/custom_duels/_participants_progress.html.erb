@@ -3,12 +3,15 @@
     <div class="col-md-12">
       <div class="rating-progress-bars p-3">
         <div class="progress-1 align-items-center">
+          <% problems_count = duel.problems.size %>
           <% duel.users.each do |user| %>
+            
             <span><%= user.username %></span>
-            <%= custom_duel_progress(problems_count: duel.problems.size,
-                                     correct_answers: duel.user_state(user).correct_answers,
-                                     points: duel.user_state(user).points,
-                                     answered_questions: duel.user_state(user).submissions) %>
+            <% user_state = duel.user_state(user) %>
+            <%= custom_duel_progress(problems_count: problems_count,
+                                     correct_answers: user_state.correct_answers,
+                                     points: user_state.points,
+                                     answered_questions: user_state.submissions) %>
           <% end %>
         </div>
       </div>

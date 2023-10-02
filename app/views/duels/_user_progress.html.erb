@@ -1,5 +1,6 @@
 <%= tag.div id: "#{dom_id(user)}_progress" do %>
-  <%= duel_progress(correct_answers: duel.user_state(user).correct_answers,
-                    points: duel.user_state(user).points,
-                    answered_questions: duel.user_state(user).submissions) %>
+  <% user_state = duel.user_state(user) %>
+  <%= duel_progress(correct_answers: user_state.correct_answers,
+                    points: user_state.points,
+                    answered_questions: user_state.submissions) %>
 <% end %>

@@ -6,8 +6,8 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
-  validates :email, presence: true, uniqueness: true
-  validates :username, presence: true, uniqueness: true
+  validates :email, presence: true, uniqueness: true, if: :email_changed?
+  validates :username, presence: true, uniqueness: true, if: :username_changed?
   validates :level, presence: true, if: :level_changed?
 
   enum level: { beginner: 0, intermediate: 1, advanced: 2, expert: 3 }

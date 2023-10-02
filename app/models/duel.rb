@@ -20,13 +20,17 @@ class Duel < ApplicationRecord
     DuelDetails.new(points: 0, submissions: 0, correct_answers: 0)
   end
 
+  def participants_submissions
+    @participants_submissions ||= submissions.where(user: users)
+  end
+
   def user_state(user)
-    user_submissions = submissions.where(user: user)
+    user_submissions = participants_submissions.select { |submissions| submissions.user_id == user.id }
 
     return initial_state if user_submissions.empty?
 
     points = user_submissions.sum(&:points)
-    submissions_count = submissions.where(user: user).size
+    submissions_count = user_submissions.size
 
     DuelDetails.new(
       points: points,
