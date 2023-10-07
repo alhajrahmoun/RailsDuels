@@ -11,7 +11,7 @@ class DuelParticipant < ApplicationRecord
   after_commit :broadcast_participant_action, on: %i[create destroy], if: -> { duel.is_a?(CustomDuel) }
 
   def participants_count
-    return if self.class.where(duel_id: duel_id).count <= CustomDuel::MAX_PARTICIPANTS
+    return if self.class.where(duel_id: duel_id).count < CustomDuel::MAX_PARTICIPANTS
 
     errors.add(:base, 'Max participants reached')
   end

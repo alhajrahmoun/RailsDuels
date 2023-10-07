@@ -8,6 +8,7 @@ class CustomDuelRanksQuery
                        .group(:user_id, :username)
                        .to_sql
 
-    User.select('*, points, RANK() OVER (ORDER BY (points) DESC) as rank').from("(#{users_points}) as users_points")
+    User.select('*, points, RANK() OVER (ORDER BY (points) DESC) as rank')
+        .from("(#{users_points}) as users_points")
   end
 end

@@ -33,6 +33,18 @@ RSpec.describe User do
     end
   end
 
+  describe 'callbacks' do
+    describe '#reset_points' do
+      let(:user) { create(:user, level: 'beginner', points: 100) }
+
+      it 'resets the points to 0' do
+        user.update(level: 'intermediate')
+
+        expect(user.reload.points).to eq(0)
+      end
+    end
+  end
+
   describe 'associations' do
     it 'has many duels' do
       expect(user).to respond_to(:duels)
@@ -90,6 +102,23 @@ RSpec.describe User do
     it 'sets the status to idle' do
       user.update_queue_status
       expect(user.reload.status).to eq('idle')
+    end
+  end
+
+  describe '#reset_points' do
+    let(:user) { create(:user, points: 100) }
+
+    it 'resets the points to 0' do
+      user.reset_points
+      expect(user.reload.points).to eq(0)
+    end
+  end
+
+  describe '#offline?' do
+    let(:user) { create(:user, online: false) }
+
+    it 'returns true if the user is offline' do
+      expect(user).to be_offline
     end
   end
 end
