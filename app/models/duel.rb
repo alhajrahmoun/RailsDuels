@@ -21,7 +21,7 @@ class Duel < ApplicationRecord
   end
 
   def participants_submissions
-    @participants_submissions ||= submissions.where(user: users)
+    @participants_submissions ||= submissions
   end
 
   def user_state(user)

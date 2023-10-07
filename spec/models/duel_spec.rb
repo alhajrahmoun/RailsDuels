@@ -15,12 +15,16 @@ RSpec.describe Duel do
   end
 
   describe '#user_state' do
-    let!(:user) { create(:user) }
     let!(:duel) { create(:duel) }
+    let(:users) { duel.users }
+    let(:user) { users.first }
     let!(:submissions) { create_list(:submission, 3, user: user, duel: duel) }
+
+    before { duel.submissions.reload }
 
     it 'returns the current state for a given user' do
       state = duel.user_state(user)
+
       expect(state.points).to eq(30)
       expect(state.submissions).to eq(3)
       expect(state.correct_answers).to eq(3)
