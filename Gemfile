@@ -52,10 +52,7 @@ gem 'newrelic_rpm'
 
 gem 'pundit', '~> 2.3'
 
-gem 'ahoy_matey'
 gem 'pagy', '~> 6.0'
-
-gem 'ahoy_captain', '~> 1.0'
 # Use Sass to process CSS
 # gem "sassc-rails"
 
