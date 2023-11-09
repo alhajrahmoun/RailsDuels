@@ -11,7 +11,7 @@ class UserLevelsController < ApplicationController
     else
       flash[:alert] = I18n.t('actions.failure')
 
-      render :edit
+      render :edit, status: :unprocessable_entity
     end
   end
 
