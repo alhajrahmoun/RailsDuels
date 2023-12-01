@@ -37,6 +37,9 @@ jobs:
       - name: Set up database schema
         run: bin/rails db:schema:load
 
+      - name: precompile assets
+        run: bin/rails assets:precompile
+        
       - name: Run tests
         run: bin/bundle exec rspec
       - name: Run code coverage
