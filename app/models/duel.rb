@@ -12,7 +12,7 @@ class Duel < ApplicationRecord
 
   belongs_to :winner, class_name: 'User', optional: true
 
-  enum state: { starting: 0, ongoing: 1, finished: 2 }
+  enum :state, { starting: 0, ongoing: 1, finished: 2 }
 
   after_update_commit :broadcast_state_change, if: -> { finished? }
 

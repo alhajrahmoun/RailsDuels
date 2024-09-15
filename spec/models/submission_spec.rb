@@ -20,25 +20,23 @@ RSpec.describe Submission do
       expect(submission.points).to eq(0)
     end
 
-    context 'with extra points' do
-      context 'when the duel is custom' do
-        let(:duel) { create(:custom_duel) }
-        let(:problem) { create(:problem, choices: %w[A B C], answer: 'B', points: 5) }
+    context 'with extra points when the duel is custom' do
+      let(:duel) { create(:custom_duel) }
+      let(:problem) { create(:problem, choices: %w[A B C], answer: 'B', points: 5) }
 
-        it 'sets extra points if it is the first submission' do
-          submission = build(:submission, choice: 'B', problem: problem, duel: duel)
-          submission.save
+      it 'sets extra points if it is the first submission' do
+        submission = build(:submission, choice: 'B', problem: problem, duel: duel)
+        submission.save
 
-          expect(submission.points).to eq(6)
-        end
+        expect(submission.points).to eq(6)
+      end
 
-        it 'does not set extra points if it is not the first submission' do
-          create(:submission, choice: 'B', problem: problem, duel: duel)
-          submission = build(:submission, choice: 'B', problem: problem, duel: duel)
-          submission.save
+      it 'does not set extra points if it is not the first submission' do
+        create(:submission, choice: 'B', problem: problem, duel: duel)
+        submission = build(:submission, choice: 'B', problem: problem, duel: duel)
+        submission.save
 
-          expect(submission.points).to eq(5)
-        end
+        expect(submission.points).to eq(5)
       end
     end
   end

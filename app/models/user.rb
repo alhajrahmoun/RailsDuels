@@ -10,8 +10,8 @@ class User < ApplicationRecord
   validates :username, presence: true, uniqueness: true, if: :username_changed?
   validates :level, presence: true, if: :level_changed?
 
-  enum level: { beginner: 0, intermediate: 1, advanced: 2, expert: 3 }
-  enum status: { idle: 0, in_queue: 1, in_duel: 2 }
+  enum :level, { beginner: 0, intermediate: 1, advanced: 2, expert: 3 }
+  enum :status, { idle: 0, in_queue: 1, in_duel: 2 }
 
   scope :online, -> { where(online: true) }
 

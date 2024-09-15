@@ -11,7 +11,7 @@ class SettingsController < ApplicationController
 
       redirect_to settings_path
     else
-      flash[:alert] = I18n.t('actions.failure')
+      flash.now[:alert] = I18n.t('actions.failure')
 
       render :show
     end

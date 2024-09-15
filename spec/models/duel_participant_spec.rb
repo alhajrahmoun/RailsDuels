@@ -14,7 +14,7 @@ RSpec.describe DuelParticipant do
 
     it 'is invalid when participants count is more than MAX_PARTICIPANTS' do
       # We already have two participants from the factory
-      create_list(:duel_participant, 18, duel: duel)
+      create_list(:duel_participant, 18, duel: duel) # rubocop:disable FactoryBot/ExcessiveCreateList
 
       expect(build(:duel_participant, duel: duel)).not_to be_valid
     end
